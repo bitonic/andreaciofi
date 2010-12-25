@@ -1,0 +1,10 @@
+syntax: glob
+*.pyc
+.emacs.desktop
+data/
+prod.ini
+development.ini
+*~
+
+syntax: regexp
+(.*/)?\#[^/]*\#$
