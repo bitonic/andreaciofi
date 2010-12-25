@@ -1,4 +1,5 @@
 import couchdb.mapping as mapping
+from datetime import datetime
 
 
 class Gallery(mapping.Document):
@@ -9,22 +10,28 @@ class Gallery(mapping.Document):
     images = mapping.ListField(mapping.TextField())
     videos = mapping.ListField(mapping.TextField())
     date = mapping.DateField()
+
     created = mapping.DateTimeField()
+    modified = mapping.DateTimeField()
 
     def store(self, db):
+        if not self.created:
+            self.created = datetime.utcnow()
+        else:
+            self.modified = datetime.utcnow()
         
         super(Gallery, self).store(db)
         
         return self
 
-    date = mapping.ViewField('galleries', '''
+    by_date = mapping.ViewField('galleries', '''
         function(doc) {
             if (doc.type == 'Gallery') {
                 emit(doc.date, doc);
             }
         }''')
 
-    created = mapping.ViewField('galleries', '''
+    by_created = mapping.ViewField('galleries', '''
         function(doc) {
             if (doc.type == 'Gallery') {
                 emit(doc.created, doc);
