@@ -7,6 +7,7 @@ from pylons.decorators.rest import restrict, dispatch_on
 
 from andreaciofi.lib.base import BaseController, render
 from andreaciofi.lib import authorize
+from andreaciofi.lib.helpers import flash
 from andreaciofi.model import Gallery
 
 log = logging.getLogger(__name__)
@@ -41,10 +42,21 @@ class AdminController(BaseController):
         
         gallery.name = request.POST.get('name')
         gallery.text = request.POST.get('text')
+        gallery.tags = [tag.strip() for tag in request.POST.get('tags').split(',')]
+        gallery.tags = filter(lambda t: t != '', gallery.tags)
 
-        tags = request.POST.get('tags').split(',')
-        tags = [tag.strip() for tag in tags]
-        gallery.tags = tags
+        for video in request.POST.getall('delete_video'):
+            gallery.videos.remove(video)
+
+        videos = [video.strip() for video in
+                  request.POST.get('videos').split(',')]
+        videos = filter(lambda v: v != '', videos)
+
+        if gallery.videos:
+            gallery.videos.extend(videos)
+        else:
+            gallery.videos = videos
+        
 
         gallery.date = date(int(request.POST.get('year')),
                             int(request.POST.get('month')),
@@ -52,4 +64,5 @@ class AdminController(BaseController):
 
         gallery.store(self.db)
 
+        flash("Gallery successfully edited.")
         redirect(url(controller='admin', action='galleries'))

@@ -2,3 +2,13 @@
     border: 1px solid black;
     padding: 4px;
 }
+
+.video {
+    display:inline;
+}
+
+#flash {
+    color:red;
+    font-weight:bold;
+}
+    
