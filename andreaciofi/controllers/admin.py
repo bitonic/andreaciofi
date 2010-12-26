@@ -8,7 +8,7 @@ from pylons.decorators.rest import restrict, dispatch_on
 from andreaciofi.lib.base import BaseController, render
 from andreaciofi.lib import authorize
 from andreaciofi.lib.helpers import flash
-from andreaciofi.lib.images import store_image, remove_image
+from andreaciofi.lib.images import store_image, remove_image, remove_image
 from andreaciofi.model import Gallery
 
 log = logging.getLogger(__name__)
@@ -49,7 +49,7 @@ class AdminController(BaseController):
         # cover image
         if hasattr(request.POST['cover_image'], 'file'):
             if gallery.cover:
-                delete_image(gallery.cover)
+                remove_image(gallery.cover)
             
             gallery.cover = store_image(request.POST['cover_image'].file)
 
@@ -74,4 +74,14 @@ class AdminController(BaseController):
         gallery.store(self.db)
 
         flash("Gallery successfully edited.")
+        redirect(url(controller='admin', action='galleries'))
+
+    def delete_gallery(self, id):
+        gallery = Gallery.load(self.db, id)
+
+        remove_image(gallery.cover)
+
+        self.db.delete(gallery)
+        
+        flash("Gallery successfully deleted.")
         redirect(url(controller='admin', action='galleries'))

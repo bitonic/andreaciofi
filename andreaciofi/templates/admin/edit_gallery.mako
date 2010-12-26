@@ -34,5 +34,6 @@ Date: ${h.select("year", h.datetime.now().strftime('%Y'), [str(y) for y in range
 Input the vimeo video id of the videos you want to add, separated by commas:<br/>
 ${h.text("videos", style='width:250px')}
 </p>
-${h.submit("submit", "Edit gallery")}
+${h.submit("submit", "Edit gallery")} -
+<a href="${h.url(controller='admin', action='delete_gallery', id=c.gallery.id)}">Delete gallery</a>
 ${h.end_form()}
