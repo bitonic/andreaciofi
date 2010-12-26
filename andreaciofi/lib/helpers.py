@@ -9,6 +9,8 @@ from datetime import datetime
 
 from pylons import url
 
+from andreaciofi.lib.images import thumbnailer
+
 flash = _Flash()
 
 def truncate_string(content, length=100, suffix='...'):

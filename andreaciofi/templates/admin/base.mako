@@ -3,6 +3,7 @@
 <%def name="head()">
 ${parent.head()}
 <link rel="stylesheet" href="/css/admin.css" type="text/css" />
+<script type="text/javascript" src="js/mootools-core-1.3-full-compat.js"></script>
 </%def>
 
 <%def name="title()">Admin</%def>

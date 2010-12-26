@@ -1,6 +1,11 @@
 from PIL import Image
 import os
 from pylons import config
+import shutil
+import imghdr
+from random import choice
+from glob import glob
+from string import ascii_letters
 
 def thumbnailer(filename, max_width=None, max_height=None, crop=False):
     """Given the filename of an image in the image dir, it thumbnails
@@ -62,3 +67,48 @@ def thumbnailer(filename, max_width=None, max_height=None, crop=False):
         im.save(os.path.join(config['thumbs_dir'], name))
             
     return os.path.join(config['thumbs_base_url'], name)
+
+def image_path(filename):
+    return os.path.join(config['images_dir'], filename)
+
+def store_image(image_file):
+    # Get the image format...
+    format = imghdr.what(image_file)
+    # Only png and jpeg files. There is already a check with the validator
+    # but you never know (:
+    if format in ['png', 'jpeg']:
+        
+        chars = []
+        for i in range(len(ascii_letters)):
+            chars.append(ascii_letters[i])
+        chars.extend(map(str, range(10)))
+
+        filename = ''.join([choice(chars) for i in range(7)])
+        filename = filename + '.' + format
+
+        while os.path.isfile(image_path(filename)):
+            filename = ''.join([choice(chars) for i in range(7)])
+            filename = filename + '.' + format
+        
+        # Open the new file
+        permanent_file = open(image_path(filename), 'w')
+    
+        # Copy the temp file to its destination
+        shutil.copyfileobj(image_file, permanent_file)
+        image_file.close() # close everything
+        permanent_file.close()
+
+        return filename
+    else:
+        raise ValueError('The image must be of png or jpeg formats.')
+
+def remove_image(filename):
+    # delete the image
+    os.remove(image_path(filename))
+
+    # delete thumbs
+    thumbs = glob(os.path.join(config['thumbs_dir'],
+                               os.path.splitext(filename)[0]) + '_*')
+    
+    for thumb in thumbs:
+        os.remove(thumb)

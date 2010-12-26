@@ -7,6 +7,7 @@ class Gallery(mapping.Document):
     name = mapping.TextField()
     text = mapping.TextField()
     tags = mapping.ListField(mapping.TextField())
+    cover = mapping.TextField()
     images = mapping.ListField(mapping.TextField())
     videos = mapping.ListField(mapping.TextField())
     date = mapping.DateField()

@@ -8,6 +8,7 @@
 
 <table id="galleries_table">
 <tr>
+    <th></th>
     <th>Date added</th>
     <th>Date</th>
     <th>Name</th>
@@ -16,6 +17,7 @@
 </tr>
 % for gallery in galleries:
     <tr>
+        <td><img src="${h.thumbnailer(gallery.cover, max_width=200)}" />
         <td>${gallery.created.strftime('%d-%m-%Y')}</td>
         <td>${gallery.date.strftime('%m-%Y')}</td>
         <td>${gallery.name}</td>

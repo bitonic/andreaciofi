@@ -2,6 +2,8 @@ syntax: glob
 *.pyc
 .emacs.desktop
 data/
+andreaciofi/public/thumbs/
+andreaciofi/public/gallery_images/
 prod.ini
 development.ini
 *~
