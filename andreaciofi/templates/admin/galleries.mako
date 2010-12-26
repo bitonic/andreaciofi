@@ -1,0 +1,27 @@
+<%inherit file="/admin/base.mako" />
+
+<%def name="title()">${parent.title()} - Galleries</%def>
+
+<%def name="heading()">Galleries</%def>
+
+<% galleries = list(c.galleries) %>
+
+<table id="galleries_table">
+<tr>
+    <th>Date added</th>
+    <th>Date</th>
+    <th>Name</th>
+    <th>Tags</th>
+    <th>Text</th>
+</tr>
+% for gallery in galleries:
+    <tr>
+        <td>${gallery.created.strftime('%d-%m-%Y')}</td>
+        <td>${gallery.date.strftime('%m-%Y')}</td>
+        <td>${gallery.name}</td>
+        <td>${", ".join(gallery.tags)}
+        <td>${h.truncate_string(gallery.text)}</td>
+        <td><a href="${h.url(controller='admin', action='edit_gallery', id=gallery.id)}">Edit</a></td>
+    </tr>
+% endfor
+</table>

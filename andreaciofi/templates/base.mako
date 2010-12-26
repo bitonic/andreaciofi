@@ -6,7 +6,7 @@
     ${self.head()}
 </head>
 <body>
-<div id="wrapper"><div id="container">
+<div id="wrapper">
     <% flashes = h.flash.pop_messages() %>
     % if flashes:
         % for flash in flashes:
@@ -18,15 +18,11 @@
 
     ${next.body()}
 </div>
-<div id="push"></div>
-</div>
 <div id="footer">${self.footer()}</div>
 </body>
 </html>
 
 <%def name="title()">troppo tardi - </%def>
-
-<%def name="heading()"></%def>
 
 <%def name="head()">
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />

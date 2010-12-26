@@ -17,9 +17,9 @@ def thumbnailer(filename, max_width=None, max_height=None, crop=False):
 
     name += ext
 
-    # If the thumbnail already exists, don't create it.
-    # This could be dangerous if the image could be changed, but
-    # the image cannot be changed right now, so it should be safe.
+    # If the thumbnail already exists, don't create it.  This could be
+    # dangerous if the image could be changed, but the image cannot be
+    # changed right now, so it should be safe.
     if not os.path.isfile(os.path.join(config['thumbs_dir'], name)):
         
         im = Image.open(os.path.join(config['images_dir'], filename))
