@@ -40,7 +40,8 @@ class AdminController(BaseController):
             gallery = Gallery()
         else:
             gallery = Gallery.load(self.db, id)
-        
+
+            
         gallery.name = request.POST['name']
         gallery.text = request.POST['text']
         gallery.tags = [tag.strip() for tag in request.POST['tags'].split(',')]
@@ -52,6 +53,15 @@ class AdminController(BaseController):
                 remove_image(gallery.cover)
             
             gallery.cover = store_image(request.POST['cover_image'].file)
+
+        # other images
+        for image in request.POST.getall('images'):
+            if hasattr(image, 'file'):
+                gallery.images.append(store_image(image.file))
+
+        for image in request.POST.getall('delete_image'):
+            gallery.images.remove(image)
+            remove_image(image)
 
         # Video stuff
         for video in request.POST.getall('delete_video'):

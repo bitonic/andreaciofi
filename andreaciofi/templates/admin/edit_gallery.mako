@@ -1,5 +1,8 @@
 <%inherit file="/admin/base.mako" />
 
+<%def name="head()">${parent.head()}
+</%def>
+
 <%def name="title()">${parent.title()} - Editing gallery</%def>
 
 <%def name="heading()">Editing gallery "${c.gallery.name}"</%def>
@@ -17,15 +20,31 @@ Text: <br/>${h.textarea("text", cols=70, rows=8, content=c.gallery.text)}<br/>
 Tags - separed by commas: ${h.text("tags", value=", ".join(c.gallery.tags))}<br/>
 Date: ${h.select("year", h.datetime.now().strftime('%Y'), [str(y) for y in range(1980, h.datetime.now().year + 1)])}/${h.select("month", "1", [str(m) for m in range(1,13)])}<br/>
 </p>
+<h3>Images</h3>
+Upload images - you can select multiple images:<br/>
+<input name='images' type=file multiple /><br/>
+% if c.gallery.images:
+    Check images to delete:<br/>
+    % for image in c.gallery.images:
+        <table class="inlinetable">
+          <tr><td>${h.checkbox('delete_image', value=image, checked=False)}</td></tr>
+          <tr><td>
+              <a href="${h.image_url(image)}" target="_blank">
+                <img src="${h.thumbnailer(image, max_width=200, max_height=200)}" />
+              </a></td></tr>
+        </table>
+    % endfor
+% endif
 <h3>Videos</h3>
 % if c.gallery.videos:
     Check the videos you want to delete:<br/>
     % for video in c.gallery.videos:
-        <table class="video">
+        <table class="inlinetable">
+          <tr><td>${h.checkbox('delete_video', value=video, checked=False)}</td></tr>
           <tr>
             <td>
-              <iframe src="http://player.vimeo.com/video/${video}" width="400" height="225" frameborder="0"></iframe><td>
-            <td>${h.checkbox('delete_video', value=video, checked=False)}</td>
+              <iframe src="http://player.vimeo.com/video/${video}" width="400" height="225" frameborder="0"></iframe>
+            <td>
           </tr>
         </table>
     % endfor

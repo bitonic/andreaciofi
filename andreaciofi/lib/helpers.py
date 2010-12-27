@@ -9,7 +9,7 @@ from datetime import datetime
 
 from pylons import url
 
-from andreaciofi.lib.images import thumbnailer
+from andreaciofi.lib.images import thumbnailer, image_url
 
 flash = _Flash()
 

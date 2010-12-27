@@ -71,6 +71,9 @@ def thumbnailer(filename, max_width=None, max_height=None, crop=False):
 def image_path(filename):
     return os.path.join(config['images_dir'], filename)
 
+def image_url(filename):
+    return os.path.join(config['images_base_url'], filename)
+
 def store_image(image_file):
     # Get the image format...
     format = imghdr.what(image_file)
