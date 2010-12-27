@@ -2,9 +2,9 @@
 
 <%def name="header()">
 ${parent.header()}
-<div id="header_menu">
+<span id="header_menu">
 <a href="#"><img src="/images/about.png" alt="About" /></a><a href="/"><img src="/images/worksBlack.png" alt="Works" /></a>
-</div>
+</span>
 </%def>
 
 <%

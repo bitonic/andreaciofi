@@ -32,9 +32,18 @@ ${self.header()}
 % if self.heading():
 ${self.heading()}
 % endif
-<span id="searchbar_right">
+<span class="searchbar_right">
 ${h.form(h.url(controller='gallery', action='search'), method='GET')}
-chose year: <a href="#">2010</a>
+chose year:
+<ul>
+  <li><a href="${h.url(controller='gallery', action='tag', tag=c.years[0])}">${c.years[0]}</a>
+    <ul>
+    % for i in range(1, len(c.years)):
+        <li><a href="${h.url(controller='gallery', action='tag', tag=c.years[i])}">${c.years[i]}</a></li>
+    % endfor
+    </ul>
+  </li>
+</ul>
 ${h.text('searchterms', value='Search')}
 ${h.end_form()}
 </span>

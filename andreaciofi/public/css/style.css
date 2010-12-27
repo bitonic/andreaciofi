@@ -43,7 +43,7 @@ body a:visited {
     font-size:130%;
 }
 
-#searchbar_right {
+.searchbar_right {
     float:right;
     font-weight:normal;
     font-size:80%;
@@ -165,4 +165,53 @@ body a:visited {
 .footer_left {
     float:right;
     font-weight:normal;
+}
+
+/* menu */
+#searchbar ul {
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:inline;
+}
+
+#searchbar li{
+    padding:0px;
+    display:inline;
+}
+
+#searchbar li a{
+    margin:0px;
+    padding:3px;
+}
+
+#searchbar li ul{
+    background:white;
+    display:none;
+    padding:0 3px 3px 3px;
+    position:absolute;
+    z-index:200;
+    width:185px;
+}
+
+#searchbar li:hover ul{
+    display:block;
+    
+}
+
+#searchbar li li {
+    float:none;
+    margin:-4px 0 0 0;
+    padding:0;
+    text-align:center;
+}
+
+#searchbar li:hover li a{
+    background:none;
+    
+}
+#searchbar li ul a{
+    font-style:normal;
+    margin:0;
+    text-align:left;
 }

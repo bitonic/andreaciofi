@@ -10,6 +10,11 @@ log = logging.getLogger(__name__)
 
 class GalleryController(BaseController):
     entries_per_page = 10
+    
+    def __before__(self):
+        c.years = list(self.db.view('galleries/years', group=True, descending=True))
+        for i in range(len(c.years)):
+            c.years[i] = c.years[i].key
 
     def index(self):
         redirect(url(controller='gallery', action='list', page=1))
@@ -20,7 +25,7 @@ class GalleryController(BaseController):
                 descending=True,
                 limit=self.entries_per_page * page,
                 ))[self.entries_per_page * (int(page) - 1):self.entries_per_page * int(page)]
-        c.pages = len(list(Gallery.by_date(self.db))) / self.entries_per_page + 1
+        c.pages = list(self.db.view('galleries/count'))[0].value / self.entries_per_page + 1
         c.page = int(page)
 
         c.base_url = url(controller='gallery', action='list', page=0)[:-1]
@@ -40,12 +45,7 @@ class GalleryController(BaseController):
                     limit=self.entries_per_page * page,
                     ))[self.entries_per_page * (int(page) - 1):self.entries_per_page * int(page)]
 
-            c.pages = len(list(Gallery.by_tag(
-                    self.db,
-                    descending=True,
-                    startkey=[tag,{}],
-                    endkey=[tag[:-1] + unichr(ord(tag[-1]) - 1)],
-                    ))) / self.entries_per_page + 1
+            c.pages = len(self.db.view('galleries/tag_count', group=True, key=tag)) / self.entries_per_page + 1
             c.page = int(page)
 
             return render('/gallery/gallery_list.mako')
