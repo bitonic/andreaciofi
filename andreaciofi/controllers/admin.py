@@ -56,7 +56,7 @@ class AdminController(BaseController):
             
         gallery.name = request.POST['name']
         gallery.text = request.POST['text']
-        gallery.tags = [tag.strip() for tag in request.POST['tags'].split(',')]
+        gallery.tags = [tag.strip().lower() for tag in request.POST['tags'].split(',')]
         gallery.tags = filter(lambda t: t != '', gallery.tags)
 
         # cover image

@@ -9,7 +9,7 @@ from andreaciofi.model import Gallery
 log = logging.getLogger(__name__)
 
 class GalleryController(BaseController):
-    entries_per_page = 3
+    entries_per_page = 10
 
     def index(self):
         redirect(url(controller='gallery', action='list', page=1))

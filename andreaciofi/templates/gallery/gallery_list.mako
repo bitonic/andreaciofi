@@ -26,18 +26,25 @@ right_col = 0;
             <a href="${h.url(controller='gallery', action='show', slug=gallery.slug)}">
                 <img src="${h.image_url(thumb)}" alt="${gallery.name}" />
             </a>
-            % if gallery.tags:
-                <div class="gallery_entry_tags">
+
+            <div class="gallery_entry_tags">
+                <a href="${h.url(controller='gallery', action='tag', tag=gallery.date.strftime('%Y'))}">
+                    ${gallery.date.strftime('%Y')}
+                </a>
+                % if gallery.tags:
+                    , 
+                % endif
                 % for tag in gallery.tags[:-1]:
                     <a href="${h.url(controller='gallery', action='tag', tag=tag)}">
                         ${tag}
                     </a>, 
                 % endfor
+                % if gallery.tags:
                 <a href="${h.url(controller='gallery', action='tag', tag=gallery.tags[-1])}">
                     ${gallery.tags[-1]}
                 </a> 
-                </div>
-            % endif
+                % endif
+            </div>
         </div>
         <div class="gallery_entry_name">
             <span class="gallery_entry_date">${gallery.date.strftime('%Y/%m')}</span> ${gallery.name}
