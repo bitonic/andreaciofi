@@ -65,7 +65,15 @@ class Gallery(mapping.Document):
     by_slug = mapping.ViewField('galleries', '''
         function(doc) {
             if (doc.type == 'Gallery') {
-                emit(doc.slug, doc);
+                emit(doc.slug,{
+                    name: doc.name,
+                    text: doc.text,
+                    tags: doc.tags,
+                    images: doc.images,
+                    videos: doc.videos,
+                    date: doc.date,
+                    slug: doc.slug,
+                });
             }
         }''')
 
