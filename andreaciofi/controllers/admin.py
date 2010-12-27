@@ -1,6 +1,7 @@
 import logging
 from datetime import date
 from decorator import decorator
+from hashlib import sha1
 
 from pylons import request, response, session, tmpl_context as c, url, config
 from pylons.controllers.util import abort, redirect
@@ -115,7 +116,7 @@ class AdminController(BaseController):
     @restrict('POST')
     def _do_login(self):
         if request.POST['username'] == config['admin_user'] and \
-                request.POST['password'] == config['admin_password']:
+                sha1(request.POST['password']).hexdigest() == config['admin_password']:
             session['logged_in'] = True
             session.save()
             redirect(url(controller='admin', action='galleries'))
@@ -125,5 +126,6 @@ class AdminController(BaseController):
 
     def logout(self):
         del session['logged_in']
+        session.save()
 
         redirect('/')
