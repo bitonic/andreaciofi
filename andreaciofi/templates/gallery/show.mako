@@ -9,8 +9,9 @@ ${parent.header()}
 
 <%def name="heading()">${c.gallery.name.upper()}</%def>
 
+<p>${h.process_text(c.gallery.text)}</p>
+
 <%
-video_counter = 0
 img_n = 0
 images = len(c.gallery.images)
 %>

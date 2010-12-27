@@ -8,9 +8,12 @@ ${parent.head()}
 <%def name="title()">Admin</%def>
 
 <%def name="footer()">
-<hr/>
-<a href="${h.url(controller='admin', action='galleries')}">Galleries</a> - 
-<a href="${h.url(controller='admin', action='new_gallery')}">Create new gallery</a>
+% if 'logged_in' in h.session:
+    <hr/>
+    <a href="${h.url(controller='admin', action='galleries')}">Galleries</a> - 
+    <a href="${h.url(controller='admin', action='new_gallery')}">Create new gallery</a> -
+    <a href="${h.url(controller='admin', action='logout')}">Logout</a>
+% endif
 </%def>
 
 <h1>${next.heading()}</h1>

@@ -27,7 +27,7 @@ right_col = 0;
                 <img src="${h.image_url(thumb)}" alt="${gallery.name}" />
             </a>
             % if gallery.tags:
-                <span class="gallery_entry_tags">
+                <div class="gallery_entry_tags">
                 % for tag in gallery.tags[:-1]:
                     <a href="${h.url(controller='gallery', action='tag', tag=tag)}">
                         ${tag}
@@ -36,7 +36,7 @@ right_col = 0;
                 <a href="${h.url(controller='gallery', action='tag', tag=gallery.tags[-1])}">
                     ${gallery.tags[-1]}
                 </a> 
-                </span>
+                </div>
             % endif
         </div>
         <div class="gallery_entry_name">
@@ -44,3 +44,15 @@ right_col = 0;
         </div>
     </div>
 % endfor
+
+% if c.pages > 0:
+    <div id="pages">
+    % for p in range(1, c.pages + 1):
+        % if p != c.page:
+            <a href="${h.url(controller='gallery', action='list', page=p)}">${p}</a>
+        % else:
+            ${p}
+        % endif
+    % endfor
+    </div>
+% endif

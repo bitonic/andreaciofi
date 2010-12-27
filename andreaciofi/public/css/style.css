@@ -99,8 +99,13 @@ body a:visited {
     color: white;
 }
 
+.gallery_entry_img a:visited {
+    color:white;
+}
+
 .gallery_entry_tags {
     padding:3px;
+    margin:0;
 }
 
 .gallery_entry_name {
@@ -119,6 +124,14 @@ body a:visited {
     margin-right:3px;
 }
 
+#pages {
+    clear:both;
+    text-align:right;
+    margin:0;
+    padding:0 20px 0 0;
+    font-size:120%;
+}
+
 .gallery_img {
     margin:4px 0 0 4px;
     float:left;
@@ -134,6 +147,12 @@ body a:visited {
 #content hr {
     visibility:hidden;
     clear:both;
+}
+
+#content p {
+    padding:0 20px;
+    margin:0 0 5px 0;
+    text-align:justify;
 }
 
 #footer {

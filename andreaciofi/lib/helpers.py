@@ -5,9 +5,10 @@ available to Controllers. This module is available to templates as 'h'.
 """
 from webhelpers.html.tags import *
 from webhelpers.pylonslib import Flash as _Flash
+from webhelpers.html import literal
 from datetime import datetime
 
-from pylons import url
+from pylons import url, session
 
 from andreaciofi.lib.images import thumbnailer, image_url, image_size
 
@@ -21,3 +22,6 @@ def truncate_string(content, length=100, suffix='...'):
 
 def thumbnailer_url(name, **kwargs):
     return image_url(thumbnailer(name, **kwargs))
+
+def process_text(text):
+    return literal('<p>') + literal(text.replace('\n', '</p><p>')) + literal('</p>')

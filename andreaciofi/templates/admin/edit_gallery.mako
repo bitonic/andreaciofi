@@ -1,8 +1,5 @@
 <%inherit file="/admin/base.mako" />
 
-<%def name="head()">${parent.head()}
-</%def>
-
 <%def name="title()">${parent.title()} - Editing gallery</%def>
 
 <%def name="heading()">Editing gallery "${c.gallery.name}"</%def>

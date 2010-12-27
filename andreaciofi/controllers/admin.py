@@ -1,7 +1,8 @@
 import logging
 from datetime import date
+from decorator import decorator
 
-from pylons import request, response, session, tmpl_context as c, url
+from pylons import request, response, session, tmpl_context as c, url, config
 from pylons.controllers.util import abort, redirect
 from pylons.decorators.rest import restrict, dispatch_on
 
@@ -13,27 +14,37 @@ from andreaciofi.model import Gallery
 
 log = logging.getLogger(__name__)
 
+def authorize():
+    def validator(func, *args, **kwargs):
+        # If the visitor is not logged in, redirect him to the login page
+        if 'logged_in' not in session:
+            abort(403)
+        else:
+            return func(*args, **kwargs)
+
+    return decorator(validator)    
+
 class AdminController(BaseController):
 
     def index(self):
-        # Return a rendered template
-        #return render('/admin.mako')
-        # or, return a string
-        return 'Hello World'
+        redirect(url(controller='admin', action='galleries'))
 
-    @dispatch_on(POST='_do_galleries')
+    @authorize()
     def galleries(self):
         c.galleries = Gallery.by_created(self.db, descending=True)
 
         return render('/admin/galleries.mako')
 
+    @authorize()
     def new_gallery(self):
         return render('/admin/new_gallery.mako')
 
+    @authorize()
     def edit_gallery(self, id):
         c.gallery = Gallery.load(self.db, id)
         return render('/admin/edit_gallery.mako')
 
+    @authorize()
     @restrict('POST')
     def do_edit_gallery(self, id=None):
         if not id:
@@ -86,6 +97,7 @@ class AdminController(BaseController):
         flash("Gallery successfully edited.")
         redirect(url(controller='admin', action='galleries'))
 
+    @authorize()
     def delete_gallery(self, id):
         gallery = Gallery.load(self.db, id)
 
@@ -95,3 +107,23 @@ class AdminController(BaseController):
         
         flash("Gallery successfully deleted.")
         redirect(url(controller='admin', action='galleries'))
+
+    @dispatch_on(POST='_do_login')
+    def login(self):
+        return render('/admin/login.mako')
+
+    @restrict('POST')
+    def _do_login(self):
+        if request.POST['username'] == config['admin_user'] and \
+                request.POST['password'] == config['admin_password']:
+            session['logged_in'] = True
+            session.save()
+            redirect(url(controller='admin', action='galleries'))
+        else:
+            flash("Wrong username/password.")
+            redirect(url(controller='admin', action='login'))
+
+    def logout(self):
+        del session['logged_in']
+
+        redirect('/')

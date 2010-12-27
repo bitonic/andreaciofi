@@ -14,7 +14,7 @@ emailE=('ma' + 'il@andreacio' + 'fi.c' + 'om')
 document.write('<a href="mailto:' + emailE + '">' + 'contact' + '</a>')
 </script>
 <span class="footer_left">
-  a site by <a href="mailto:e.imhotep@gmail.com">francesco mazzoli</a>, 2009
+  a website by <a href="mailto:e.imhotep@gmail.com">francesco mazzoli</a>, 2010
 </span>
 </%def>
 

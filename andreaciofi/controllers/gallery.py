@@ -12,10 +12,33 @@ class GalleryController(BaseController):
     entries_per_page = 10
 
     def index(self):
-        c.galleries = list(Gallery.by_date(self.db, descending=True))
+        redirect(url(controller='gallery', action='list', page=1))
+
+    def list(self, page):
+        c.galleries = list(Gallery.by_date(self.db, descending=True, limit=self.entries_per_page * page))[self.entries_per_page * (int(page) - 1):]
+        c.pages = len(list(Gallery.by_date(self.db))) / self.entries_per_page + 1
+        c.page = int(page)
 
         return render('/gallery/gallery_list.mako')
+                                           
 
+    def tag(self, tag, page=0):
+        if page == 0:
+            redirect(url(controller='gallery', action='tag', page=1))
+        else:
+            c.galleries = list(Gallery.by_date(self.db,
+                                               descending=True,
+                                               limit=self.entries_per_page * page,
+                                               startkey=[tag, "\u0000"],
+                                               endkey=[tag, "\u9999"]
+                                               )
+                               )[self.entries_per_page * (int(page) - 1):]
+#            c.pages = len(list(Gallery.by_date(self.db))) / self.entries_per_page + 1
+            c.pages = 1
+            c.page = int(page)
+
+            return render('/gallery/gallery_list.mako')
+            
     def show(self, slug):
         c.gallery = list(Gallery.by_slug(self.db, startkey=slug, limit=1))
 
