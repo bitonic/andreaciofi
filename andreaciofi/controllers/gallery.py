@@ -30,7 +30,7 @@ class GalleryController(BaseController):
 
     def tag(self, tag, page=0):
         if page == 0:
-            redirect(url(controller='gallery', action='tag', page=1))
+            redirect(url(controller='gallery', action='tag', tag=tag, page=1))
         else:
             c.galleries = list(Gallery.by_tag(
                     self.db,

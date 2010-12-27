@@ -52,7 +52,7 @@ right_col = 0;
     </div>
 % endfor
 
-% if c.pages > 0:
+% if c.pages > 1:
     <div id="pages">
     % for p in range(1, c.pages + 1):
         % if p != c.page:
