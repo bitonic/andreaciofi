@@ -49,7 +49,7 @@ right_col = 0;
     <div id="pages">
     % for p in range(1, c.pages + 1):
         % if p != c.page:
-            <a href="${h.url(controller='gallery', action='list', page=p)}">${p}</a>
+            <a href="${c.base_url + str(p)}">${p}</a>
         % else:
             ${p}
         % endif

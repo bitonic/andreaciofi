@@ -23,7 +23,7 @@ def make_map(config):
     map.connect('index', '/', controller='gallery', action='index')
     map.connect('list', '/page/{page}', controller='gallery', action='list')
     map.connect('tag', '/tag/{tag}', controller='gallery', action='tag')
-    map.connect('tag_page', '/tag/{tag}/{page}', controller='gallery', action='tag')
+    map.connect('tag_page', '/tag/{tag}/page/{page}', controller='gallery', action='tag')
     map.connect('show', '/gallery/{slug}', controller='gallery', action='show')
 
     map.connect('/admin', controller='admin', action='galleries')
