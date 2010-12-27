@@ -23,7 +23,7 @@ class AdminController(BaseController):
 
     @dispatch_on(POST='_do_galleries')
     def galleries(self):
-        c.galleries = Gallery.by_created(self.db)
+        c.galleries = Gallery.by_created(self.db, descending=True)
 
         return render('/admin/galleries.mako')
 

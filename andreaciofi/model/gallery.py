@@ -45,7 +45,13 @@ class Gallery(mapping.Document):
     by_date = mapping.ViewField('galleries', '''
         function(doc) {
             if (doc.type == 'Gallery') {
-                emit(doc.date, doc);
+                emit(doc.date, {
+                   cover: doc.cover,
+                   date: doc.date,
+                   tags: doc.tags,
+                   name: doc.name,
+                   slug: doc.slug,
+                });
             }
         }''')
 
@@ -61,4 +67,15 @@ class Gallery(mapping.Document):
             if (doc.type == 'Gallery') {
                 emit(doc.slug, doc);
             }
+        }''')
+
+    years = mapping.ViewField('galleries', '''
+        function(doc) {
+            if (doc.type == 'Gallery') {
+                var year = parseInt(doc.date.substr(0, 4), 10);
+                emit(year, 1);
+            }
+        }''', '''
+        function(keys, values, rereduce) {
+            return sum(values);
         }''')

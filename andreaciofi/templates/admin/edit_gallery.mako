@@ -11,7 +11,7 @@ ${h.form(h.url(controller='admin', action='do_edit_gallery', id=c.gallery.id), m
 <p>
 Name: ${h.text("name", value=c.gallery.name)}<br/>
 <table><tr>
-        <td><img src="${h.thumbnailer(c.gallery.cover, max_width=300)}" /></td>
+        <td><img src="${h.thumbnailer_url(c.gallery.cover, max_width=300)}" /></td>
         <td>Change cover image:<br/>
           ${h.file("cover_image")}</td>
     </tr>
@@ -30,7 +30,7 @@ Upload images - you can select multiple images:<br/>
           <tr><td>${h.checkbox('delete_image', value=image, checked=False)}</td></tr>
           <tr><td>
               <a href="${h.image_url(image)}" target="_blank">
-                <img src="${h.thumbnailer(image, max_width=200, max_height=200)}" />
+                <img src="${h.thumbnailer_url(image, max_width=200, max_height=200)}" />
               </a></td></tr>
         </table>
     % endfor

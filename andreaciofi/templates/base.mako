@@ -18,8 +18,8 @@
     % endif
 
     ${next.body()}
+    <div id="footer">${self.footer()}</div>
 </div>
-<div id="footer">${self.footer()}</div>
 </body>
 </html>
 

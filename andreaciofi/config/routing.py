@@ -20,6 +20,8 @@ def make_map(config):
 
     # CUSTOM ROUTES HERE
 
+    map.connect('index', '/', controller='gallery', action='index')
+
     map.connect('/{controller}/{action}')
     map.connect('/{controller}/{action}/{id}')
 

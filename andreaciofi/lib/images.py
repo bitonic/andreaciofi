@@ -7,6 +7,11 @@ from random import choice
 from glob import glob
 from string import ascii_letters
 
+def image_size(filename):
+    im = Image.open(os.path.join(config['images_dir'], filename))
+
+    return im.size
+
 def thumbnailer(filename, max_width=None, max_height=None, crop=False):
     """Given the filename of an image in the image dir, it thumbnails
     it and stores it in the thumbnails directory (both directories are
@@ -25,7 +30,7 @@ def thumbnailer(filename, max_width=None, max_height=None, crop=False):
     # If the thumbnail already exists, don't create it.  This could be
     # dangerous if the image could be changed, but the image cannot be
     # changed right now, so it should be safe.
-    if not os.path.isfile(os.path.join(config['thumbs_dir'], name)):
+    if not os.path.isfile(os.path.join(config['images_dir'], name)):
         
         im = Image.open(os.path.join(config['images_dir'], filename))
         (width, height) = im.size
@@ -64,9 +69,9 @@ def thumbnailer(filename, max_width=None, max_height=None, crop=False):
                 im.thumbnail((max_width, max_height), Image.ANTIALIAS)
 
         # Save it 
-        im.save(os.path.join(config['thumbs_dir'], name))
+        im.save(os.path.join(config['images_dir'], name))
             
-    return os.path.join(config['thumbs_base_url'], name)
+    return name
 
 def image_path(filename):
     return os.path.join(config['images_dir'], filename)
@@ -110,7 +115,7 @@ def remove_image(filename):
     os.remove(image_path(filename))
 
     # delete thumbs
-    thumbs = glob(os.path.join(config['thumbs_dir'],
+    thumbs = glob(os.path.join(config['images_dir'],
                                os.path.splitext(filename)[0]) + '_*')
     
     for thumb in thumbs:

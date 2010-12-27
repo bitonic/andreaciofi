@@ -9,7 +9,7 @@ from datetime import datetime
 
 from pylons import url
 
-from andreaciofi.lib.images import thumbnailer, image_url
+from andreaciofi.lib.images import thumbnailer, image_url, image_size
 
 flash = _Flash()
 
@@ -18,3 +18,6 @@ def truncate_string(content, length=100, suffix='...'):
         return content
     else:
         return ' '.join(content[:length + 1].split(' ')[0:-1]) + suffix
+
+def thumbnailer_url(name, **kwargs):
+    return image_url(thumbnailer(name, **kwargs))
