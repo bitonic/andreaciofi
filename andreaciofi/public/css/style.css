@@ -120,7 +120,20 @@ body a:visited {
 }
 
 .gallery_img {
-    margin:0 0 0 4px;
+    margin:4px 0 0 4px;
+    float:left;
+}
+
+.gallery_video {
+    margin:4px 0 0 4px;
+    float:left;
+    padding:0;
+    height:332px;
+}
+
+#content hr {
+    visibility:hidden;
+    clear:both;
 }
 
 #footer {
