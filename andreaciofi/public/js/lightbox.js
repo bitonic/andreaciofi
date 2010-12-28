@@ -25,17 +25,15 @@ window.addEvent('domready', function() {
 });
 
 function show_img(imgurl) {
-    hide_img();
-
-    lightbox_img.empty();
     var img = new Element('img',{
         src: imgurl
     });
-    lightbox_img.adopt(img);
     img.addEvent('load',function(){
         // Set the visibility
         lightbox_content.setStyle('display', 'block');
         lightbox_overlay.setStyle('display', 'block');
+        lightbox_img.empty();
+        lightbox_img.adopt(img);
         var img_size = img.getSize();
         var win_size = window.getSize();
 
