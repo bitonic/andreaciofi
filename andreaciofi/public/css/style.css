@@ -132,9 +132,20 @@ body a:visited {
     font-size:120%;
 }
 
-.gallery_img {
+.gallery_img, .gallery_img_left, .gallery_img_middle, .gallery_img_right {
     margin:4px 0 0 4px;
+    border:2px solid black;
+}
+
+.gallery_img {
     float:left;
+
+.gallery_img_left {
+    float:left;
+}
+
+.gallery_img_right {
+    float:right;
 }
 
 .gallery_video {

@@ -8,7 +8,10 @@ ${h.form(h.url(controller='admin', action='do_edit_gallery', id=c.gallery.id), m
 <p>
 Name: ${h.text("name", value=c.gallery.name)}<br/>
 <table><tr>
-        <td><img src="${h.thumbnailer_url(c.gallery.cover, max_width=300)}" /></td>
+        <td>
+	  % if c.gallery.cover:
+              <img src="${h.thumbnailer_url(c.gallery.cover, max_width=300)}" /></td>
+	  % endif
         <td>Change cover image:<br/>
           ${h.file("cover_image")}</td>
     </tr>

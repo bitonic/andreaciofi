@@ -138,9 +138,9 @@ class Gallery(mapping.Document):
         function(doc) {
             if (doc.type == 'Gallery') {
                 var year = parseInt(doc.date.substr(0, 4), 10);
-                emit(year, undefined);
+                emit(year, 0);
             }
         }''', '''
         function(keys, values, rereduce) {
-            return undefined;
+            return 0;
         }''')

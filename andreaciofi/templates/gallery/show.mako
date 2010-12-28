@@ -35,6 +35,7 @@ img_n = 0
 images = len(c.gallery.images)
 %>
 
+<!--
 % for video in c.gallery.videos:
 <div class="gallery_video"><iframe src="http://player.vimeo.com/video/${video}" width="590" height="332" frameborder="0"></iframe></div>
 % if img_n < images:
@@ -45,16 +46,40 @@ images = len(c.gallery.images)
 % endif
 % if img_n < images:
     <a href="${h.image_url(c.gallery.images[img_n])}" target="_blank">
-      <img src="${h.thumbnailer_url(c.gallery.images[img_n], max_width=293, max_height=164, crop=True)}" class="gallery_img" />
+      <img src="${h.thumbnailer_url(c.gallery.images[img_n], max_width=289, max_height=160, crop=True)}" class="gallery_img" />
     </a>
     <% img_n += 1 %>
 % endif
 % endfor
 
+
 % for img_n in range(img_n, images):
     <a href="${h.image_url(c.gallery.images[img_n])}" target="_blank">
-      <img src="${h.thumbnailer_url(c.gallery.images[img_n], max_width=293, max_height=164, crop=True)}" class="gallery_img" />
+      <img src="${h.thumbnailer_url(c.gallery.images[img_n], max_width=289, max_height=160, crop=True)}" class="gallery_img" />
     </a>
 % endfor
+-->
 
+<%
+left = 0
+middle = 0
+right = 0
+%>
+
+% for image in c.gallery.images:
+    <%
+    if left >= middle and left >= right:
+        left += h.image_size(image)[1]
+	imgclass = "gallery_img_left"
+    else if middle >= right:
+        middle += h.image_size(image)[1]
+	imgclass = "gallery_img_middle"
+    else:
+        right += h.image_size(image)[1]
+	imgclass = "gallery_img_right"
+    %>
+    <a href="${h.image_url(c.gallery.images[img_n])}" target="_blank">
+      <img src="${h.thumbnailer_url(c.gallery.images[img_n], max_width=289)}" class="${class}" />
+    </a>
+% endfor
 <hr/>
