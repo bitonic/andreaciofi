@@ -30,12 +30,12 @@ ${parent.header()}
 .</b>
 </p>
 
+<!--
 <%
 img_n = 0
 images = len(c.gallery.images)
 %>
 
-<!--
 % for video in c.gallery.videos:
 <div class="gallery_video"><iframe src="http://player.vimeo.com/video/${video}" width="590" height="332" frameborder="0"></iframe></div>
 % if img_n < images:
@@ -64,22 +64,36 @@ images = len(c.gallery.images)
 left = 0
 middle = 0
 right = 0
+col_left = ""
+col_right = ""
 %>
 
-% for image in c.gallery.images:
+% for video in c.gallery.videos:
     <%
-    if left >= middle and left >= right:
-        left += h.image_size(image)[1]
-	imgclass = "gallery_img_left"
-    else if middle >= right:
-        middle += h.image_size(image)[1]
-	imgclass = "gallery_img_middle"
-    else:
-        right += h.image_size(image)[1]
-	imgclass = "gallery_img_right"
+    col_left += h.literal('<div class="gallery_video"><iframe src="http://player.vimeo.com/video/' + video + '" width="590" height="332" frameborder="0"></iframe></div>')
+    left += 336
+    middle += 336
     %>
-    <a href="${h.image_url(c.gallery.images[img_n])}" target="_blank">
-      <img src="${h.thumbnailer_url(c.gallery.images[img_n], max_width=289)}" class="${class}" />
-    </a>
 % endfor
+
+% for image in c.gallery.images:
+% if left <= middle and left <= right:
+    <%
+    left += h.image_size(h.thumbnailer(image, max_width=289))[1] + 8
+    col_left += h.literal('<a href="' + h.image_url(c.gallery.images[img_n]) + '" target="_blank"><img src="' + h.thumbnailer_url(image, max_width=289) + '" class="gallery_img_left" /></a>')
+    %>
+% elif middle <= right:
+    <%
+    middle += h.image_size(h.thumbnailer(image, max_width=289))[1] + 8
+    col_left += h.literal('<a href="' + h.image_url(c.gallery.images[img_n]) + '" target="_blank"><img src="' + h.thumbnailer_url(image, max_width=289) + '" class="gallery_img_right" /></a>')
+    %>
+% else:
+    <%
+    right += h.image_size(h.thumbnailer(image, max_width=289))[1] + 8
+    col_right += h.literal('<a href="' + h.image_url(c.gallery.images[img_n]) + '" target="_blank"><img src="' + h.thumbnailer_url(image, max_width=289) + '" class="gallery_img_left" /></a>')
+    %>
+% endif
+% endfor
+<div class="gallery_imgs_left_col">${col_left}</div>
+${col_right}
 <hr/>

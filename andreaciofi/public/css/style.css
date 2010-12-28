@@ -132,22 +132,22 @@ body a:visited {
     font-size:120%;
 }
 
-.gallery_img, .gallery_img_left, .gallery_img_middle, .gallery_img_right {
+.gallery_img_left, .gallery_img_right {
     margin:4px 0 0 4px;
+    float:left;
     border:2px solid black;
-}
-
-.gallery_img {
-    float:left;
-
-.gallery_img_left {
-    float:left;
 }
 
 .gallery_img_right {
     float:right;
 }
 
+.gallery_imgs_left_col {
+    float:left;
+    width:594px;
+    padding:0;
+    margin:0 0 0 4px;
+}
 .gallery_video {
     margin:4px 0 0 4px;
     float:left;
