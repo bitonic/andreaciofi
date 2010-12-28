@@ -28,7 +28,7 @@
 <%def name="head()">
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rel="shortcut icon" href="/favicon.ico" />
-<!--<script type="text/javscript" src="/js/mootools-core-1.3-full-compat.js"></script>-->
+<script type="text/javscript" src="/js/mootools-core-1.3-full-compat.js"></script>
 
 </%def>
 <%def name="footer()"></%def>

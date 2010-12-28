@@ -57,7 +57,7 @@ class AdminController(BaseController):
     @restrict('POST')
     @validate(schema=NewGallery(), form='new_gallery')
     def do_new_gallery(self):
-        do_edit_gallery()
+        self.do_edit_gallery()
 
     @authorize()
     @restrict('POST')
