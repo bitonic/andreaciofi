@@ -28,12 +28,13 @@ function show_img(imgurl) {
     var img = new Element('img',{
         src: imgurl
     });
+
     img.addEvent('load',function(){
         // Set the visibility
         lightbox_content.setStyle('display', 'block');
         lightbox_overlay.setStyle('display', 'block');
-        lightbox_img.empty();
-        lightbox_img.adopt(img);
+	lightbox_img.empty();
+	lightbox_img.adopt(img);	
         var img_size = img.getSize();
         var win_size = window.getSize();
 
