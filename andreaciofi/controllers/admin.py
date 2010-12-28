@@ -19,6 +19,12 @@ def authorize():
     def validator(func, *args, **kwargs):
         # If the visitor is not logged in, redirect him to the login page
         if 'logged_in' not in session:
+            session['redirect_to'] = request.environ.get('PATH_INFO')
+
+            if request.environ.get('QUERY_STRING'):
+                session['redirect_to'] += '?' + request.environ['QUERY_STRING']
+            session.save()
+
             redirect(url(controller='admin', action='login'))
         else:
             return func(*args, **kwargs)
@@ -119,7 +125,14 @@ class AdminController(BaseController):
                 sha1(request.POST['password']).hexdigest() == config['admin_password']:
             session['logged_in'] = True
             session.save()
-            redirect(url(controller='admin', action='galleries'))
+
+            if 'redirect_to' in session:
+                redirect_to = session['redirect_to']
+                del session['redirect_to']
+                session.save()
+                redirect(redirect_to)
+            else:
+                redirect(url(controller='admin', action='galleries'))
         else:
             flash("Wrong username/password.")
             redirect(url(controller='admin', action='login'))
