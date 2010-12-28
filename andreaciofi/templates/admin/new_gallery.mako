@@ -4,7 +4,7 @@
 
 <%def name="heading()">Create new gallery</%def>
 
-${h.form(h.url(controller='admin', action='do_edit_gallery'), method='POST', multipart=True)}
+${h.form(h.url(controller='admin', action='do_new_gallery'), method='POST', multipart=True)}
 Name: ${h.text("name")}<br/>
 Cover image: ${h.file("cover_image")}<br/>
 Text: <br/>${h.textarea("text", cols=70, rows=8)}<br/>

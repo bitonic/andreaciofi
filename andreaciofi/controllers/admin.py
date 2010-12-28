@@ -6,12 +6,14 @@ from hashlib import sha1
 from pylons import request, response, session, tmpl_context as c, url, config
 from pylons.controllers.util import abort, redirect
 from pylons.decorators.rest import restrict, dispatch_on
+from pylons.decorators import validate
 
 from andreaciofi.lib.base import BaseController, render
 from andreaciofi.lib import authorize
 from andreaciofi.lib.helpers import flash
 from andreaciofi.lib.images import store_image, remove_image, remove_image
 from andreaciofi.model import Gallery
+from andreaciofi.model.forms import NewGallery, EditGallery
 
 log = logging.getLogger(__name__)
 
@@ -53,6 +55,13 @@ class AdminController(BaseController):
 
     @authorize()
     @restrict('POST')
+    @validate(schema=NewGallery(), form='new_gallery')
+    def do_new_gallery(self):
+        do_edit_gallery()
+
+    @authorize()
+    @restrict('POST')
+    @validate(schema=EditGallery(), form='edit_gallery')
     def do_edit_gallery(self, id=None):
         if not id:
             gallery = Gallery()
