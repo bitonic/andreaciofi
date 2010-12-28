@@ -1,5 +1,10 @@
 <%inherit file="/layout.mako" />
 
+<%def name="head()">
+${parent.head()}
+<script type="text/javascript" src="/js/lightbox.js"></script>
+</%def>
+
 <%def name="header()">
 ${parent.header()}
 <div id="header_menu">
@@ -30,36 +35,6 @@ ${parent.header()}
 .</b>
 </p>
 
-<!--
-<%
-img_n = 0
-images = len(c.gallery.images)
-%>
-
-% for video in c.gallery.videos:
-<div class="gallery_video"><iframe src="http://player.vimeo.com/video/${video}" width="590" height="332" frameborder="0"></iframe></div>
-% if img_n < images:
-    <a href="${h.image_url(c.gallery.images[img_n])}" target="_blank">
-      <img src="${h.thumbnailer_url(c.gallery.images[img_n], max_width=293, max_height=164, crop=True)}" class="gallery_img" />
-    </a>
-    <% img_n += 1 %>
-% endif
-% if img_n < images:
-    <a href="${h.image_url(c.gallery.images[img_n])}" target="_blank">
-      <img src="${h.thumbnailer_url(c.gallery.images[img_n], max_width=289, max_height=160, crop=True)}" class="gallery_img" />
-    </a>
-    <% img_n += 1 %>
-% endif
-% endfor
-
-
-% for img_n in range(img_n, images):
-    <a href="${h.image_url(c.gallery.images[img_n])}" target="_blank">
-      <img src="${h.thumbnailer_url(c.gallery.images[img_n], max_width=289, max_height=160, crop=True)}" class="gallery_img" />
-    </a>
-% endfor
--->
-
 <%
 left = 0
 middle = 0
@@ -70,9 +45,9 @@ col_right = ""
 
 % for video in c.gallery.videos:
     <%
-    col_left += h.literal('<div class="gallery_video"><iframe src="http://player.vimeo.com/video/' + video + '" width="590" height="332" frameborder="0"></iframe></div>')
-    left += 336
-    middle += 336
+    col_left += h.literal('<div class="gallery_video"><iframe src="http://player.vimeo.com/video/' + video + '" width="586" height="330" frameborder="0"></iframe></div>')
+    left += 338
+    middle += 338
     %>
 % endfor
 
@@ -80,17 +55,17 @@ col_right = ""
 % if left <= middle and left <= right:
     <%
     left += h.image_size(h.thumbnailer(image, max_width=289))[1] + 8
-    col_left += h.literal('<a href="' + h.image_url(c.gallery.images[img_n]) + '" target="_blank"><img src="' + h.thumbnailer_url(image, max_width=289) + '" class="gallery_img_left" /></a>')
+    col_left += h.literal('<a class="gallery_img_link" href="' + h.image_url(image) + '" target="_blank"><img src="' + h.thumbnailer_url(image, max_width=289) + '" class="gallery_img_left" /></a>')
     %>
 % elif middle <= right:
     <%
     middle += h.image_size(h.thumbnailer(image, max_width=289))[1] + 8
-    col_left += h.literal('<a href="' + h.image_url(c.gallery.images[img_n]) + '" target="_blank"><img src="' + h.thumbnailer_url(image, max_width=289) + '" class="gallery_img_right" /></a>')
+    col_left += h.literal('<a class="gallery_img_link" href="' + h.image_url(image) + '" target="_blank"><img src="' + h.thumbnailer_url(image, max_width=289) + '" class="gallery_img_right" /></a>')
     %>
 % else:
     <%
     right += h.image_size(h.thumbnailer(image, max_width=289))[1] + 8
-    col_right += h.literal('<a href="' + h.image_url(c.gallery.images[img_n]) + '" target="_blank"><img src="' + h.thumbnailer_url(image, max_width=289) + '" class="gallery_img_left" /></a>')
+    col_right += h.literal('<a class="gallery_img_link" href="' + h.image_url(image) + '" target="_blank"><img src="' + h.thumbnailer_url(image, max_width=289) + '" class="gallery_img_left" /></a>')
     %>
 % endif
 % endfor
