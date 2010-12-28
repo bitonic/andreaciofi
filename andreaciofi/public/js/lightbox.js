@@ -40,7 +40,7 @@ function show_img(imgurl) {
         var win_size = window.getSize();
 
         if (img_size.x >= win_size.x || img_size.y >= win_size.y) {
-            if (img_size.x - win_size.x >= img_size.y - win_size.y) {
+            if ((img_size.x / img_size.y) >= (win_size.x / win_size.y)) {
                 var img_width = win_size.x - 50;
                 var img_height = (win_size.x - 50) * img_size.y / img_size.x;
                 img.setProperties({
@@ -58,7 +58,8 @@ function show_img(imgurl) {
         }
         
         // Style of lightbox
-        lightbox_content.setStyle('margin-left', '-' + ((img_width + 4) / 2) + 'px');
+        lightbox_content.setStyle('margin-left', '-' + (
+            lightbox_content.getSize().x / 2) + 'px');
         lightbox_content.setStyle('top', (
             window.getScroll().y + (
                 (win_size.y - lightbox_content.getSize().y) / 2)) + 'px');
