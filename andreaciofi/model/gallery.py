@@ -1,6 +1,8 @@
 import couchdb.mapping as mapping
 from datetime import datetime
 
+from andreaciofi.lib.images import remove_image
+
 class Gallery(mapping.Document):
     type = mapping.TextField(default='Gallery')
     
@@ -41,6 +43,15 @@ class Gallery(mapping.Document):
         super(Gallery, self).store(db)
         
         return self
+    
+    def delete(self, db):
+        remove_image(self.cover)
+
+        for image in self.images:
+            remove_image(image)
+
+        db.delete(self)
+
 
     by_date = mapping.ViewField('galleries', '''
         function(doc) {

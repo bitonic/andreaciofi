@@ -19,8 +19,9 @@
     <tr>
         <td>
 	  % if gallery.cover:
-              <img src="${h.thumbnailer_url(gallery.cover, max_width=200)}" />
-          % endif
+    	  <img src="${h.thumbnailer_url(gallery.cover, max_width=200)}" />
+	  % endif
+	</td>
         <td>${gallery.created.strftime('%d-%m-%Y')}</td>
         <td>${gallery.date.strftime('%m-%Y')}</td>
         <td>${gallery.name}</td>

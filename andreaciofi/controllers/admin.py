@@ -117,10 +117,8 @@ class AdminController(BaseController):
     def delete_gallery(self, id):
         gallery = Gallery.load(self.db, id)
 
-        remove_image(gallery.cover)
+        gallery.delete(self.db)
 
-        self.db.delete(gallery)
-        
         flash("Gallery successfully deleted.")
         redirect(url(controller='admin', action='galleries'))
 
