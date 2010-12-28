@@ -19,7 +19,7 @@ def authorize():
     def validator(func, *args, **kwargs):
         # If the visitor is not logged in, redirect him to the login page
         if 'logged_in' not in session:
-            abort(403)
+            redirect(url(controller='admin', action='login'))
         else:
             return func(*args, **kwargs)
 
