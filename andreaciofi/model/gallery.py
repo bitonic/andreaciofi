@@ -45,10 +45,16 @@ class Gallery(mapping.Document):
         return self
     
     def delete(self, db):
-        remove_image(self.cover)
+        try:
+            remove_image(self.cover)
+        except Exception:
+            pass
 
         for image in self.images:
-            remove_image(image)
+            try:
+                remove_image(image)
+            except Exception:
+                pass
 
         db.delete(self)
 
