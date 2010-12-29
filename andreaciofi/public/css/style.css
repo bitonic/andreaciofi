@@ -249,6 +249,7 @@ body a:visited {
     left:50%;
     margin:0;
     padding: 0;
+    top:50%;
     border: 5px solid black;
     background-color: white;
     z-index:1002;
@@ -274,11 +275,22 @@ body a:visited {
     color:white;
     margin:0;
     clear:both;
+    text-align:center;
+    padding:5px 0 0 0;
 }
 
 #lightbox_navbar_inner {
-    margin:0;
+    margin:-5px 0 0 0;
     padding:0;
     float:right;
     text-size:20px;
+}
+
+#lightbox_loading {
+    font-weight:bold;
+}
+
+#lightbox_close {
+    float:left;
+    margin-top:-5px;
 }

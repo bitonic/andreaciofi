@@ -3,6 +3,14 @@
 <%def name="head()">
 ${parent.head()}
 <script type="text/javascript" src="/js/lightbox.js"></script>
+<script type="text/javascript">
+<% lightbox_imgs = "[" %>
+% for image in c.gallery.images:
+    <% lightbox_imgs += h.literal('"') + h.image_url(image) + h.literal('",') %>
+% endfor
+<% lightbox_imgs = lightbox_imgs[:-1] + ']' %>
+var lightbox_imgs = ${lightbox_imgs}
+</script>
 </%def>
 
 <%def name="header()">
