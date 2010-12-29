@@ -273,6 +273,7 @@ body a:visited {
 #lightbox_navbar {
     color:white;
     margin:0;
+    clear:both;
 }
 
 #lightbox_navbar_inner {

@@ -1,5 +1,12 @@
 /* Lightbox code for the show page */
 
+var lightbox_content;
+var lightbox_overlay;
+var lightbox_navbar;
+var lightbox_img;
+var lightbox_left;
+var lightbox_right;
+
 window.addEvent('domready', function() {
     // Inject the divs
     $('wrapper').innerHTML += '\
@@ -16,8 +23,8 @@ window.addEvent('domready', function() {
                 <a href="" id="lightbox_right"></a> \
             </div> \
          </div> \
-    </div>';
-    $('wrapper').innerHTML += '<div id="lightbox_overlay"></div>'
+    </div> \
+    <div id="lightbox_overlay"></div>';
     lightbox_content = $('lightbox_content');
     lightbox_overlay = $('lightbox_overlay');
     lightbox_navbar = $('lightbox_navbar_inner');
