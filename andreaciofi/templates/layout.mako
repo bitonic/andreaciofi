@@ -23,18 +23,20 @@ ${self.header()}
 </div>
 
 <%def name="header()">
-<a href="/"><img src="/images/logo.png" alt="Andrea Ciofi" /></a>
+<a href="/" id="logo"><img src="/images/logo.png" alt="Andrea Ciofi" /></a>
 </%def>
 
 
 
 <div id="searchbar">
+<span id="heading">
 % if self.heading():
 ${self.heading()}
 % endif
-<span class="searchbar_right">
+</span>
+<span id="searchbar_right">
 ${h.form(h.url(controller='gallery', action='search'), method='GET')}
-chose year:
+choose year:
 <ul>
   <li><a href="${h.url(controller='gallery', action='tag', tag=c.years[0])}">${c.years[0]}</a>
     <ul>

@@ -31,6 +31,10 @@ body a:visited {
     height: 63px;
 }
 
+#logo {
+    float:left;
+}
+
 #header_menu {
     margin:0;
     padding:0;
@@ -43,7 +47,7 @@ body a:visited {
     font-size:130%;
 }
 
-.searchbar_right {
+#searchbar_right {
     float:right;
     font-weight:normal;
     font-size:80%;
@@ -65,25 +69,29 @@ body a:visited {
     margin:0 0 0 7px;
 }
 
+#heading {
+    float:left;
+    margin:3px 0 0 0;
+}
+
 #content {
     padding:10px 0 10px 0;
     clear:both;
 }
 
-.gallery_entry_left, .gallery_entry_right {
+.gallery_entry {
     padding:0;
     border:2px solid black;
-    margin: 0 0 8px 4px;
+    margin: 0 0 8px 0;
     width:438px;
     float:left;
 }
 
-.gallery_entry_left {
+.gallery_entries {
     float:left;
-}
-
-.gallery_entry_right {
-    float:right;
+    width:442px;
+    margin:0;
+    padding:0 0 0 4px;
 }
 
 .gallery_entry_img {

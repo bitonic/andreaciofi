@@ -25,7 +25,10 @@ class GalleryController(BaseController):
                 descending=True,
                 limit=self.entries_per_page * page,
                 ))[self.entries_per_page * (int(page) - 1):self.entries_per_page * int(page)]
-        c.pages = list(self.db.view('galleries/count'))[0].value / self.entries_per_page + 1
+        c.pages = list(self.db.view('galleries/count'))[0].value
+        c.pages = (c.pages % self.entries_per_page == 0) and \
+            list(self.db.view('galleries/count'))[0].value / self.entries_per_page or \
+            list(self.db.view('galleries/count'))[0].value / self.entries_per_page + 1
         c.page = int(page)
 
         c.base_url = url(controller='gallery', action='list', page=0)[:-1]

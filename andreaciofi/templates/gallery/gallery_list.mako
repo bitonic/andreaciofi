@@ -7,50 +7,68 @@ ${parent.header()}
 </span>
 </%def>
 
+<%def name="gallery_entry(gallery, thumb)">
+<div class="gallery_entry">
+    <div class="gallery_entry_img">
+        <a href="${h.url(controller='gallery', action='show', slug=gallery.slug)}">
+            <img src="${h.image_url(thumb)}" alt="${gallery.name}" />
+        </a>
+
+        <div class="gallery_entry_tags">
+            <a href="${h.url(controller='gallery', action='tag', tag=gallery.date.strftime('%Y'))}">
+                ${gallery.date.strftime('%Y')}
+            </a>
+            % if gallery.tags:
+                , 
+            % endif
+            % for tag in gallery.tags[:-1]:
+                <a href="${h.url(controller='gallery', action='tag', tag=tag)}">
+                    ${tag}
+                </a>, 
+            % endfor
+            % if gallery.tags:
+            <a href="${h.url(controller='gallery', action='tag', tag=gallery.tags[-1])}">
+                ${gallery.tags[-1]}
+            </a> 
+            % endif
+        </div>
+    </div>
+    <div class="gallery_entry_name">
+        <span class="gallery_entry_date">${gallery.date.strftime('%Y/%m')}</span> ${gallery.name}
+    </div>
+</div>
+</%def>
+
 <%
 left_col = 0
 right_col = 0;
+left_col_entries = []
+right_col_entries = []
 %>
+
 % for gallery in c.galleries:
     <%
     thumb = h.thumbnailer(gallery.cover, max_width=438)
     if left_col <= right_col:
-        left_col += h.image_size(thumb)[1]
-        div_class = "gallery_entry_left"
+        left_col += h.image_size(thumb)[1] + 8
+        left_col_entries.append(gallery)
     else:
-        right_col += h.image_size(thumb)[1]
-        div_class = "gallery_entry_right"
+        right_col += h.image_size(thumb)[1] + 8
+        right_col_entries.append(gallery)
     %>
-    <div class="${div_class}">
-        <div class="gallery_entry_img">
-            <a href="${h.url(controller='gallery', action='show', slug=gallery.slug)}">
-                <img src="${h.image_url(thumb)}" alt="${gallery.name}" />
-            </a>
-
-            <div class="gallery_entry_tags">
-                <a href="${h.url(controller='gallery', action='tag', tag=gallery.date.strftime('%Y'))}">
-                    ${gallery.date.strftime('%Y')}
-                </a>
-                % if gallery.tags:
-                    , 
-                % endif
-                % for tag in gallery.tags[:-1]:
-                    <a href="${h.url(controller='gallery', action='tag', tag=tag)}">
-                        ${tag}
-                    </a>, 
-                % endfor
-                % if gallery.tags:
-                <a href="${h.url(controller='gallery', action='tag', tag=gallery.tags[-1])}">
-                    ${gallery.tags[-1]}
-                </a> 
-                % endif
-            </div>
-        </div>
-        <div class="gallery_entry_name">
-            <span class="gallery_entry_date">${gallery.date.strftime('%Y/%m')}</span> ${gallery.name}
-        </div>
-    </div>
 % endfor
+
+<div class="gallery_entries">
+% for gallery in left_col_entries:
+    ${gallery_entry(gallery, h.thumbnailer(gallery.cover, max_width=438))}
+% endfor
+</div>
+
+<div class="gallery_entries">
+% for gallery in right_col_entries:
+    ${gallery_entry(gallery, h.thumbnailer(gallery.cover, max_width=438))}
+% endfor
+</div>
 
 % if c.pages > 1:
     <div id="pages">
