@@ -2,7 +2,21 @@
 
 window.addEvent('domready', function() {
     // Inject the divs
-    $('wrapper').innerHTML += '<div id="lightbox_content"><div id="lightbox_img"><a id="lightbox_fullsize" href="javascript:hide_img()"><img src="" id="lightbox_img" /></a></div><div id="lightbox_navbar"><a href="javascript:hide_img()"><img src="/images/lightbox_close.png" /></a><div id="lightbox_navbar_inner"><a href="" id="lightbox_left"></a><a href="" id="lightbox_right"></a></div></div></div>'
+    $('wrapper').innerHTML += '\
+    <div id="lightbox_content"> \
+        <div id="lightbox_img"> \
+            <img src="" id="lightbox_img" /> \
+        </div> \
+        <div id="lightbox_navbar"> \
+            <a href="javascript:hide_img()"> \
+                <img src="/images/lightbox_close.png" /> \
+            </a> \
+            <div id="lightbox_navbar_inner"> \
+                <a href="" id="lightbox_left"></a> \
+                <a href="" id="lightbox_right"></a> \
+            </div> \
+         </div> \
+    </div>';
     $('wrapper').innerHTML += '<div id="lightbox_overlay"></div>'
     lightbox_content = $('lightbox_content');
     lightbox_overlay = $('lightbox_overlay');
@@ -10,6 +24,9 @@ window.addEvent('domready', function() {
     lightbox_img = $('lightbox_img');
     lightbox_left = $('lightbox_left');
     lightbox_right = $('lightbox_right');    
+
+    // Add onclick event on overlay
+    lightbox_overlay.addEvent('click', hide_img());
 
     // Remove actual links, replace with function calls,
     // and build list
@@ -65,7 +82,8 @@ function show_img(imgurl) {
         
         // Links
         lightbox_left.innerHTML = "";
-        lightbox_right.innerHTML = "";        
+        lightbox_right.innerHTML = "";
+        lightbox_img.removeEvents('click');
         for (var i = 0; i < lightbox_imgs.length; i++) {
             if (lightbox_imgs[i] == imgurl)
                 break;
@@ -79,6 +97,9 @@ function show_img(imgurl) {
             lightbox_right.setProperty(
                 'href', 'javascript:show_img("' + lightbox_imgs[i+1] + '")');
             lightbox_right.innerHTML = '<img src="/images/lightbox_right.png" />';
+            lightbox_img.addEvent('click', function() {
+                show_img(lightbox_imgs[i+1]);
+            });
         }
                 
     });

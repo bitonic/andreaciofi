@@ -240,7 +240,7 @@ body a:visited {
     z-index:1001;
     -moz-opacity: 0.9;
     opacity:.90;
-    filter: alpha(opacity=80);
+    filter: alpha(opacity=90);
 }
  
 #lightbox_content {
@@ -266,6 +266,8 @@ body a:visited {
 #lightbox_img {
     margin:0;
     padding:0;
+    cursor:pointer;
+    cursor:hand;
 }
 
 #lightbox_navbar {
