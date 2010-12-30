@@ -4,8 +4,6 @@ from datetime import datetime
 from andreaciofi.lib.images import remove_image
 
 class Gallery(mapping.Document):
-    type = mapping.TextField(default='Gallery')
-    
     name = mapping.TextField()
     text = mapping.TextField()
     tags = mapping.ListField(mapping.TextField())
@@ -81,24 +79,20 @@ class Gallery(mapping.Document):
 
     by_slug = mapping.ViewField('galleries', '''
         function(doc) {
-            if (doc.type == 'Gallery') {
-                emit(doc.slug, {
-                    name: doc.name,
-                    text: doc.text,
-                    tags: doc.tags,
-                    images: doc.images,
-                    videos: doc.videos,
-                    date: doc.date,
-                    slug: doc.slug,
-                });
-            }
+            emit(doc.slug, {
+                name: doc.name,
+                text: doc.text,
+                tags: doc.tags,
+                images: doc.images,
+                videos: doc.videos,
+                date: doc.date,
+                slug: doc.slug,
+            });
         }''')
 
     count = mapping.ViewField('galleries', '''
         function(doc) {
-            if (doc.type == 'Gallery') {
-                emit("count", 1);
-            }
+            emit("count", 1);
         }''', '''
         function(keys, values, rereduce) {
             return sum(values);
@@ -106,14 +100,12 @@ class Gallery(mapping.Document):
 
     tag_count = mapping.ViewField('galleries', '''
         function(doc) {
-            if (doc.type == 'Gallery') {
-                for (var i in doc.tags) {
-                    emit(doc.tags[i], 1);
-                }
-                emit(doc.date.substr(0, 4), 1);
-                if (doc.videos.length > 0) {
-                    emit("video", 1);                
-                }
+            for (var i in doc.tags) {
+                emit(doc.tags[i], 1);
+            }
+            emit(doc.date.substr(0, 4), 1);
+            if (doc.videos.length > 0) {
+                emit("video", 1);                
             }
         }''', '''
         function(keys, values, rereduce) {
@@ -122,41 +114,37 @@ class Gallery(mapping.Document):
 
     by_tag = mapping.ViewField('galleries', '''
         function(doc) {
-            if (doc.type == 'Gallery') {
-                for (var i in doc.tags) {
-                    emit([doc.tags[i], doc.date], {
-                        cover: doc.cover,
-                        date: doc.date,
-                        tags: doc.tags,
-                        name: doc.name,
-                        slug: doc.slug,
-                    });
-                }
-                emit([doc.date.substr(0, 4), doc.date], {
+            for (var i in doc.tags) {
+                emit([doc.tags[i], doc.date], {
                     cover: doc.cover,
                     date: doc.date,
                     tags: doc.tags,
                     name: doc.name,
                     slug: doc.slug,
                 });
-                if (doc.videos.length > 0) {
-                    emit(["video", doc.date], {
-                        cover: doc.cover,
-                        date: doc.date,
-                        tags: doc.tags,
-                        name: doc.name,
-                        slug: doc.slug,
-                    });                
-                }
+            }
+            emit([doc.date.substr(0, 4), doc.date], {
+                cover: doc.cover,
+                date: doc.date,
+                tags: doc.tags,
+                name: doc.name,
+                slug: doc.slug,
+            });
+            if (doc.videos.length > 0) {
+                emit(["video", doc.date], {
+                    cover: doc.cover,
+                    date: doc.date,
+                    tags: doc.tags,
+                    name: doc.name,
+                    slug: doc.slug,
+                });                
             }
         }''')
 
     years = mapping.ViewField('galleries', '''
         function(doc) {
-            if (doc.type == 'Gallery') {
-                var year = parseInt(doc.date.substr(0, 4), 10);
-                emit(year, 0);
-            }
+            var year = parseInt(doc.date.substr(0, 4), 10);
+            emit(year, 0);
         }''', '''
         function(keys, values, rereduce) {
             return 0;
