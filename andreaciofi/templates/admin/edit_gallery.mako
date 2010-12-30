@@ -33,7 +33,7 @@ Name: ${h.text("name", value=c.gallery.name)}<br/>
 </table>
 Text: <br/>${h.textarea("text", cols=70, rows=8, content=c.gallery.text)}<br/>
 Tags - separed by commas: ${h.text("tags", value=", ".join(c.gallery.tags))}<br/>
-Date: ${h.select("year", h.datetime.now().strftime('%Y'), [str(y) for y in range(1980, h.datetime.now().year + 1)])}/${h.select("month", "1", [str(m) for m in range(1,13)])}<br/>
+Date: ${h.select("year", c.gallery.date.strftime('%Y'), [str(y) for y in range(1980, h.datetime.now().year + 1)])}/${h.select("month", str(int(c.gallery.date.strftime('%m'))), [str(m) for m in range(1,13)])}<br/>
 </p>
 <h3>Images</h3>
 Upload images - you can select multiple images:<br/>
