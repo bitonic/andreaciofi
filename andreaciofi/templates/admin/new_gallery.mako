@@ -10,9 +10,6 @@ Cover image: ${h.file("cover_image")}<br/>
 Text: <br/>${h.textarea("text", cols=70, rows=8)}<br/>
 Tags - separed by commas: ${h.text("tags")}<br/>
 Date: ${h.select("year", h.datetime.now().strftime('%Y'), [str(y) for y in range(1980, h.datetime.now().year + 1)])}/${h.select("month", "1", [str(m) for m in range(1,13)])}<br/>
-<h3>Images</h3>
-Upload images - you can select multiple images:<br/>
-<input name='images' type=file multiple />
 <h3>Videos</h3>
 <p>
 Input the vimeo video id of the videos you want to add, separated by commas:<br/>

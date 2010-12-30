@@ -4,7 +4,7 @@ from decorator import decorator
 
 def authorize():
     def validator(func, *args, **kwargs):
-        if 'logged_in' not in session:
+        if 'logged_in' not in session or not session['logged_in']:
             abort(403)
         else:
             return func(*args, **kwargs)

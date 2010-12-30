@@ -59,22 +59,18 @@ class Gallery(mapping.Document):
 
     by_date = mapping.ViewField('galleries', '''
         function(doc) {
-            if (doc.type == 'Gallery') {
-                emit(doc.date, {
-                   cover: doc.cover,
-                   date: doc.date,
-                   tags: doc.tags,
-                   name: doc.name,
-                   slug: doc.slug,
-                });
-            }
+            emit(doc.date, {
+               cover: doc.cover,
+               date: doc.date,
+               tags: doc.tags,
+               name: doc.name,
+               slug: doc.slug,
+            });
         }''')
 
     by_created = mapping.ViewField('galleries', '''
         function(doc) {
-            if (doc.type == 'Gallery') {
-                emit(doc.created, doc);
-            }
+            emit(doc.created, doc);
         }''')
 
     by_slug = mapping.ViewField('galleries', '''

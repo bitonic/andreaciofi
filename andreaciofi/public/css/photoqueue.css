@@ -1,0 +1,98 @@
+/**
+ * FancyUpload Showcase
+ *
+ * @license		MIT License
+ * @author		Harald Kirschner <mail [at] digitarald [dot] de>
+ * @copyright	Authors
+ */
+
+/* CSS vs. Adblock tabs */
+.swiff-uploader-box a {
+    display: none !important;
+}
+
+/* .hover simulates the flash interactions */
+a:hover, a.hover {
+    color: red;
+}
+
+#images_status {
+    padding: 10px 15px;
+    width: 420px;
+    border: 1px solid #eee;
+}
+
+#images_status .progress {
+    background: url(/fancyupload/assets/progress-bar/progress.gif) no-repeat;
+    background-position: +50% 0;
+    margin-right: 0.5em;
+    vertical-align: middle;
+}
+
+#images_status .progress-text {
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+#images_list {
+    list-style: none;
+    width: 450px;
+    margin: 0;
+    padding:0;
+}
+
+#images_list li.validation-error {
+    padding-left: 44px;
+    display: block;
+    clear: left;
+    line-height: 40px;
+    color: #8a1f11;
+    cursor: pointer;
+    border-bottom: 1px solid #fbc2c4;
+    background: #fbe3e4 url(/images/failed.png) no-repeat 4px 4px;
+}
+
+#images_list li.file {
+    border-bottom: 1px solid #eee;
+    background: url(/images/file.png) no-repeat 4px 4px;
+    overflow: auto;
+}
+#images_list li.file.file-uploading {
+    background-image: url(/images/uploading.png);
+    background-color: #D9DDE9;
+}
+#images_list li.file.file-success {
+    background-image: url(/images/success.png);
+}
+#images_list li.file.file-failed {
+    background-image: url(/images/failed.png);
+}
+
+#images_list li.file .file-name {
+    margin-left: 44px;
+    display: block;
+    clear: left;
+    line-height: 40px;
+    height: 40px;
+    font-weight: bold;
+}
+#images_list li.file .file-size {
+    font-size: 0.9em;
+    line-height: 18px;
+    float: right;
+    margin-top: 2px;
+    margin-right: 6px;
+}
+#images_list li.file .file-info {
+    display: block;
+    margin-left: 44px;
+    font-size: 0.9em;
+    line-height: 20px;
+    clear
+}
+#images_list li.file .file-remove {
+    clear: right;
+    float: right;
+    line-height: 18px;
+    margin-right: 6px;
+}

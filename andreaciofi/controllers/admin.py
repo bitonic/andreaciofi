@@ -2,6 +2,8 @@ import logging
 from datetime import date
 from decorator import decorator
 from hashlib import sha1
+import json
+from PIL import Image as PILImage
 
 from pylons import request, response, session, tmpl_context as c, url, config
 from pylons.controllers.util import abort, redirect
@@ -11,7 +13,7 @@ from pylons.decorators import validate
 from andreaciofi.lib.base import BaseController, render
 from andreaciofi.lib import authorize
 from andreaciofi.lib.helpers import flash
-from andreaciofi.lib.images import store_image, remove_image, remove_image
+from andreaciofi.lib.images import store_image, remove_image, remove_image, image_path
 from andreaciofi.model import Gallery
 from andreaciofi.model.forms import NewGallery, EditGallery
 
@@ -57,12 +59,12 @@ class AdminController(BaseController):
     @restrict('POST')
     @validate(schema=NewGallery(), form='new_gallery')
     def do_new_gallery(self):
-        self.do_edit_gallery()
+        self.do_edit_gallery(redirect_to_gallery=True)
 
     @authorize()
     @restrict('POST')
     @validate(schema=EditGallery(), form='edit_gallery')
-    def do_edit_gallery(self, id=None):
+    def do_edit_gallery(self, id=None, redirect_to_gallery=False):
         if not id:
             gallery = Gallery()
         else:
@@ -80,11 +82,6 @@ class AdminController(BaseController):
                 remove_image(gallery.cover)
             
             gallery.cover = store_image(request.POST['cover_image'].file)
-
-        # other images
-        for image in request.POST.getall('images'):
-            if hasattr(image, 'file'):
-                gallery.images.append(store_image(image.file))
 
         for image in request.POST.getall('delete_image'):
             gallery.images.remove(image)
@@ -111,7 +108,10 @@ class AdminController(BaseController):
         gallery.store(self.db)
 
         flash("Gallery successfully edited.")
-        redirect(url(controller='admin', action='galleries'))
+        if redirect_to_gallery:
+            redirect(url(controller='admin', action='edit_gallery', id=gallery.id))
+        else:
+            redirect(url(controller='admin', action='galleries'))
 
     @authorize()
     def delete_gallery(self, id):
@@ -121,6 +121,40 @@ class AdminController(BaseController):
 
         flash("Gallery successfully deleted.")
         redirect(url(controller='admin', action='galleries'))
+
+    def upload_image(self, id):
+        error = None
+
+        image = request.POST['Filedata']
+        if hasattr(image, 'file'):
+            gallery = Gallery.load(self.db, id)
+
+            im_filename = store_image(image.file)
+            gallery.images.append(im_filename)
+            gallery.store(self.db)
+
+            im_obj = PILImage.open(image_path(im_filename))
+
+            ret = {
+                'status': '1',
+                'name': image.filename,
+                'width': im_obj.size[0],
+                'height': im_obj.size[1],
+                'mime': im_obj.format,
+                }
+        else:
+            ret = {
+                'status': '0',
+                'error': 'Invalid Upload',
+                }
+
+        return json.dumps(ret)
+
+    @authorize()
+    def images_delete_list(self, id):
+        c.gallery = Gallery.load(self.db, id)
+        
+        return render('/admin/images_list.mako')
 
     @dispatch_on(POST='_do_login')
     def login(self):

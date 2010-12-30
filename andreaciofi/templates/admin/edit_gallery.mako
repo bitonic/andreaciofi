@@ -1,10 +1,25 @@
 <%inherit file="/admin/base.mako" />
 
+<%namespace name="images_list" file="/admin/images_list.mako"/>
+
 <%def name="title()">${parent.title()} - Editing gallery</%def>
+
+<%def name="head()">
+${parent.head()}
+<script type="text/javascript" src="/fancyupload/source/Swiff.Uploader.js"></script>
+<script type="text/javascript" src="/fancyupload/source/Fx.ProgressBar.js"></script>
+<script type="text/javascript" src="/fancyupload/source/FancyUpload2.js"></script>
+<script type="text/javascript">
+var images_upload_url = '${url(controller='admin', action='upload_image', id=c.gallery.id)}';
+var images_list_url = '${url(controller='admin', action='images_delete_list', id=c.gallery.id)}';
+</script>
+<script type="text/javascript" src="/js/photoqueue.js"></script>
+<link rel="stylesheet" href="/css/photoqueue.css" type="text/css" />
+</%def>
 
 <%def name="heading()">Editing gallery "${c.gallery.name}"</%def>
 
-${h.form(h.url(controller='admin', action='do_edit_gallery', id=c.gallery.id), method='POST', multipart=True)}
+${h.form(h.url(controller='admin', action='do_edit_gallery', id=c.gallery.id), method='POST', multipart=True, id='form-demo')}
 <p>
 Name: ${h.text("name", value=c.gallery.name)}<br/>
 <table><tr>
@@ -22,18 +37,31 @@ Date: ${h.select("year", h.datetime.now().strftime('%Y'), [str(y) for y in range
 </p>
 <h3>Images</h3>
 Upload images - you can select multiple images:<br/>
-<input name='images' type=file multiple /><br/>
+<div id="images_status" class="hide">
+  <p>
+    <a href="#" id="images_browse">Browse Files</a> |
+    <a href="#" id="images_clear">Clear List</a> |
+    <a href="#" id="images_upload">Start Upload</a>
+    
+  </p>
+  <div>
+    <strong class="overall-title"></strong><br />
+    <img src="/fancyupload/assets/progress-bar/bar.gif" class="progress overall-progress" />
+  </div>
+  <div>
+    <strong class="current-title"></strong><br />
+    <img src="/fancyupload/assets/progress-bar/bar.gif" class="progress current-progress" />
+  </div>
+  
+  <div class="current-text"></div>
+</div>
+
+<ul id="images_list"></ul><br/>
 % if c.gallery.images:
     Check images to delete:<br/>
-    % for image in c.gallery.images:
-        <table class="inlinetable">
-          <tr><td>${h.checkbox('delete_image', value=image, checked=False)}</td></tr>
-          <tr><td>
-              <a href="${h.image_url(image)}" target="_blank">
-                <img src="${h.thumbnailer_url(image, max_width=200, max_height=200)}" />
-              </a></td></tr>
-        </table>
-    % endfor
+    <div id="images_delete_list">
+      ${images_list.images_delete_list(c.gallery)}
+    </div>
 % endif
 <h3>Videos</h3>
 % if c.gallery.videos:
