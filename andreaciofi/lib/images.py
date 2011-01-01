@@ -23,7 +23,7 @@ def thumbnailer(filename, max_width=None, max_height=None, crop=False):
     name = name + '_' + str(max_width) + 'x' + str(max_height)
 
     if crop:
-        name += '_crop_'
+        name += '_crop'
 
     name += ext
 

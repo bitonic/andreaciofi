@@ -249,6 +249,8 @@ body a:visited {
     -moz-opacity: 0.9;
     opacity:.90;
     filter: alpha(opacity=90);
+    cursor:pointer;
+    cursor:hand;
 }
  
 #lightbox_content {

@@ -11,7 +11,7 @@ var current_img = null;
 
 window.addEvent('domready', function() {
     // Inject the divs
-    $('wrapper').innerHTML += '\
+    document.body.innerHTML += '\
     <div id="lightbox_content"> \
         <div id="lightbox_img"> \
             <img src="/images/filler.png" /> \
@@ -37,7 +37,7 @@ window.addEvent('domready', function() {
     lightbox_loading = $('lightbox_loading');
 
     // Add onclick event on overlay
-    lightbox_overlay.addEvent('click', hide_img());
+    lightbox_overlay.addEvent('click', hide_img);
 
     // Remove actual links, replace with function calls,
     // and build list

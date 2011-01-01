@@ -134,7 +134,7 @@ class AdminController(BaseController):
             gallery.store(self.db)
 
             im_obj = PILImage.open(image_path(im_filename))
-
+            
             ret = {
                 'status': '1',
                 'name': image.filename,
