@@ -63,7 +63,11 @@ function show_img(imgurl) {
     });
     
     lightbox_content.setStyle('display', 'block');
-    lightbox_overlay.setStyle('display', 'block');
+    lightbox_overlay.setStyles({
+        display: 'block',
+        width: document.window.getScrollSize().x + 'px',
+        height: document.window.getScrollSize().y + 'px'
+    });
     lightbox_loading.set('text', 'loading...');
     img.addEvent('load',function(){
         // Set the visibility

@@ -9,7 +9,7 @@ from andreaciofi.model import Gallery
 log = logging.getLogger(__name__)
 
 class GalleryController(BaseController):
-    entries_per_page = 10
+    entries_per_page = 7
     
     def __before__(self):
         c.years = list(self.db.view('galleries/years', group=True, descending=True))
@@ -48,8 +48,10 @@ class GalleryController(BaseController):
                     limit=self.entries_per_page * page,
                     ))[self.entries_per_page * (int(page) - 1):self.entries_per_page * int(page)]
 
-            c.pages = len(self.db.view('galleries/tag_count', group=True, key=tag)) / self.entries_per_page + 1
+            c.pages = list(self.db.view('galleries/tag_count',
+                                        group=True, key=tag))[0].value / self.entries_per_page + 1
             c.page = int(page)
+            c.base_url = url(controller='gallery', action='tag', tag=tag, page=0)[:-1]
 
             return render('/gallery/gallery_list.mako')
             

@@ -132,12 +132,12 @@ body a:visited {
     margin-right:3px;
 }
 
-#pages {
+#pages_bottom {
     clear:both;
-    text-align:right;
+    text-align:left;
     margin:0;
-    padding:0 20px 0 0;
-    font-size:120%;
+    padding:0 18px;
+    font-size:130%;
 }
 
 .gallery_img_left, .gallery_img_right {

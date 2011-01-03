@@ -7,6 +7,18 @@ ${parent.header()}
 </span>
 </%def>
 
+<%def name="heading()">
+% if c.pages > 1:
+    % for p in range(1, c.pages + 1):
+        % if p != c.page:
+            <a href="${c.base_url + str(p)}">${p}</a>
+        % else:
+            <span style="font-weight:normal">${p}</span>
+        % endif
+    % endfor
+% endif
+</%def>
+
 <%def name="gallery_entry(gallery, thumb)">
 <div class="gallery_entry">
     <div class="gallery_entry_img">
@@ -41,7 +53,7 @@ ${parent.header()}
 
 <%
 left_col = 0
-right_col = 0;
+right_col = 0
 left_col_entries = []
 right_col_entries = []
 %>
@@ -71,7 +83,7 @@ right_col_entries = []
 </div>
 
 % if c.pages > 1:
-    <div id="pages">
+    <div id="pages_bottom">
     % for p in range(1, c.pages + 1):
         % if p != c.page:
             <a href="${c.base_url + str(p)}">${p}</a>
