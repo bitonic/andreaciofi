@@ -14,12 +14,16 @@ ${parent.head()}
 var images_upload_url = '${url(controller='admin', action='upload_image', id=c.gallery.id)}';
 var images_list_url = '${url(controller='admin', action='images_delete_list', id=c.gallery.id)}';
 var images_order_url = '${url(controller='admin', action='images_order', id=c.gallery.id)}';
-<% images_order = "[" %>
-% for image in c.gallery.images:
-    <% images_order += h.literal('"') + image + h.literal('",') %>
-% endfor
-<% images_order = images_order[:-1] + ']' %>
-var images_order_list = ${images_order};
+% if c.gallery.images:
+    <% images_order = "[" %>
+    % for image in c.gallery.images:
+        <% images_order += h.literal('"') + image + h.literal('",') %>
+    % endfor
+    <% images_order = images_order[:-1] + ']' %>
+    var images_order_list = ${images_order};
+% else:
+    var images_order = [];
+% endif
 </script>
 <script type="text/javascript" src="/js/edit_gallery.js"></script>
 <link rel="stylesheet" href="/css/photoqueue.css" type="text/css" />
