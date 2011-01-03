@@ -20,6 +20,11 @@ class GalleryController(BaseController):
         redirect(url(controller='gallery', action='list', page=1))
 
     def list(self, page):
+        try:
+            int(page)
+        except ValueError:
+            abort(404)
+
         c.pages = list(self.db.view('galleries/count'))
 
         c.pages = list(self.db.view('galleries/count'))[0].value
@@ -34,7 +39,6 @@ class GalleryController(BaseController):
                     limit=self.entries_per_page,
                     skip=self.entries_per_page * (int(page) - 1)
                     ))
-            c.pages = c.pages[0].value
             c.pages = (c.pages % self.entries_per_page == 0) and \
                 list(self.db.view('galleries/count'))[0].value / self.entries_per_page or \
                 list(self.db.view('galleries/count'))[0].value / self.entries_per_page + 1
@@ -48,6 +52,11 @@ class GalleryController(BaseController):
                                            
 
     def tag(self, tag, page=0):
+        try:
+            int(page)
+        except ValueError:
+            abort(404)
+
         c.pages = list(self.db.view('galleries/tag_count',
                                     group=True, key=tag))
         if c.pages:
@@ -79,7 +88,7 @@ class GalleryController(BaseController):
             abort(404)
             
     def show(self, slug):
-        c.gallery = list(Gallery.by_slug(self.db, startkey=slug, limit=1))
+        c.gallery = list(Gallery.by_slug(self.db, key=slug, limit=1))
 
         if not c.gallery or c.gallery[0].slug != slug:
             abort(404)
