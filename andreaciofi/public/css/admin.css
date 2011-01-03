@@ -16,4 +16,17 @@
     color:red;
     font-weight:bold;
 }
-    
+
+#dragged_image {
+    position:absolute;
+    display:none;
+    -moz-opacity: 0.8;
+    opacity: .80;
+    filter: alpha(opacity=80);
+    top: 0;
+    left: 0;
+}
+
+.image_cell {
+    cursor:move;
+}

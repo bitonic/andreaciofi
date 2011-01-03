@@ -9,11 +9,19 @@ ${parent.head()}
 <script type="text/javascript" src="/fancyupload/source/Swiff.Uploader.js"></script>
 <script type="text/javascript" src="/fancyupload/source/Fx.ProgressBar.js"></script>
 <script type="text/javascript" src="/fancyupload/source/FancyUpload2.js"></script>
+<script type="text/javascript" src="/js/mootools-more.js"></script>
 <script type="text/javascript">
 var images_upload_url = '${url(controller='admin', action='upload_image', id=c.gallery.id)}';
 var images_list_url = '${url(controller='admin', action='images_delete_list', id=c.gallery.id)}';
+var images_order_url = '${url(controller='admin', action='images_order', id=c.gallery.id)}';
+<% images_order = "[" %>
+% for image in c.gallery.images:
+    <% images_order += h.literal('"') + image + h.literal('",') %>
+% endfor
+<% images_order = images_order[:-1] + ']' %>
+var images_order_list = ${images_order};
 </script>
-<script type="text/javascript" src="/js/photoqueue.js"></script>
+<script type="text/javascript" src="/js/edit_gallery.js"></script>
 <link rel="stylesheet" href="/css/photoqueue.css" type="text/css" />
 </%def>
 
@@ -58,7 +66,7 @@ Upload images - you can select multiple images:<br/>
 
 <ul id="images_list"></ul><br/>
 % if c.gallery.images:
-    Check images to delete:<br/>
+    Click on the &quot;X&quot; to delete an image. Drag and drop to change the order.<br/>
     <div id="images_delete_list">
       ${images_list.images_delete_list(c.gallery)}
     </div>
@@ -84,3 +92,4 @@ ${h.text("videos", style='width:250px')}
 ${h.submit("submit", "Edit gallery")} -
 <a href="${h.url(controller='admin', action='delete_gallery', id=c.gallery.id)}">Delete gallery</a>
 ${h.end_form()}
+<div id="dragged_image"></div>

@@ -83,10 +83,6 @@ class AdminController(BaseController):
             
             gallery.cover = store_image(request.POST['cover_image'].file)
 
-        for image in request.POST.getall('delete_image'):
-            gallery.images.remove(image)
-            remove_image(image)
-
         # Video stuff
         for video in request.POST.getall('delete_video'):
             gallery.videos.remove(video)
@@ -149,6 +145,22 @@ class AdminController(BaseController):
                 }
 
         return json.dumps(ret)
+
+    def delete_image(self, id):
+        gallery = Gallery.load(self.db, id)
+        
+        gallery.images.remove(request.GET['image'])
+        gallery.store(self.db)
+
+        return 'OK'
+
+    def images_order(self, id):
+        gallery = Gallery.load(self.db, id)
+
+        gallery.images = json.loads(request.POST['images_order'])
+        gallery.store(self.db);
+        
+        return 'OK'
 
     @authorize()
     def images_delete_list(self, id):

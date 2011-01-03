@@ -66,6 +66,8 @@ def thumbnailer(filename, max_width=None, max_height=None, crop=False):
                 elif max_height and not max_width:
                     max_width = width * max_height / height
                 
+                print max_width
+
                 im.thumbnail((max_width, max_height), Image.ANTIALIAS)
 
         # Save it 

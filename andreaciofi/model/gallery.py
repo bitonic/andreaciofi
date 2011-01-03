@@ -41,7 +41,11 @@ class Gallery(mapping.Document):
         super(Gallery, self).store(db)
         
         return self
-    
+
+    def remove_image(self, image):
+        self.images.remove(image)
+        remove_image(image)
+
     def delete(self, db):
         try:
             remove_image(self.cover)

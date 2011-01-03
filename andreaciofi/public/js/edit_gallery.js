@@ -1,10 +1,5 @@
-/**
- * FancyUpload Showcase
- *
- * @license		MIT License
- * @author		Harald Kirschner <mail [at] digitarald [dot] de>
- * @copyright	Authors
- */
+var current_image = null;
+var selected_image = null;
 
 // Updates the image list
 var images_list_req = new Request.HTML({
@@ -14,6 +9,8 @@ var images_list_req = new Request.HTML({
         $('images_delete_list').set('text', '');
         //Inject the new DOM elements into the results div.
         $('images_delete_list').adopt(html);
+        // Reinitialize the image order
+        images_order();
     },
     //Our request will most likely succeed, but just in case, we'll add an
     //onFailure method which will let the user know what happened.
@@ -22,8 +19,17 @@ var images_list_req = new Request.HTML({
     }
 });
 
-window.addEvent('domready', function() { // wait for the content
+function delete_image(req_url) {
+    var req = new Request({
+        url:req_url,
+        onSuccess: function() {
+            images_list_req.send();
+        },
+    });
+    req.send();
+}
 
+function photoqueue() {
     // our uploader instance 
     
     var up = new FancyUpload2($('images_status'), $('images_list'), { // options object
@@ -77,8 +83,6 @@ window.addEvent('domready', function() { // wait for the content
 		return false;
 	    });
 	},
-	
-	// Edit the following lines, it is your custom event handling
 	
 	/**
 	 * Is called when files were not added, "files" is an array of invalid File classes.
@@ -142,5 +146,65 @@ window.addEvent('domready', function() { // wait for the content
 	}
 	
     });
-    
+}
+
+function images_order() {
+    var dragged_image = $('dragged_image');
+
+    // Add the events to all the cells
+    $$('.image_cell').each(function(el){
+        el.addEvents({
+            'mouseenter': function(){
+                current_image = el.get('id');
+                if (selected_image) {
+                    el.setStyle('border-right', '3px solid black');
+                }
+            },
+            'mouseleave': function(){
+                current_image = null;
+                el.setStyle('border-right', 'none');
+            }
+        });
+        new Drag(el, {
+            snap: 0,
+            onSnap: function(el, event){
+                selected_image = el.get('id');
+                dragged_image.set('html', el.get('html'));
+            },
+            onDrag: function(el, event){
+                dragged_image.setStyles({
+                    display: 'block',
+                    top: (event.page.y + 1) + 'px',
+                    left: (event.page.x + 1) + 'px',
+                });
+            },
+            onComplete: function(el, event){
+                dragged_image.setStyle('display', 'none');
+                if (current_image && (current_image != selected_image)) {
+                    // Remove the selected image from the array
+                    var i = images_order_list.indexOf(selected_image);
+                    images_order_list.splice(i, 1);
+                    // Add the selected image at the right position
+                    i = images_order_list.indexOf(current_image) + 1;
+                    images_order_list = images_order_list.slice(0, i).concat(
+                        selected_image, images_order_list.slice(i));
+                    selected_image = null;
+                    
+                    // Send the request
+                    var request = new Request({
+                        url: images_order_url,
+                        onSuccess: function(){
+                            images_list_req.send();
+                        },
+                    });
+                    request.post('images_order=' + JSON.encode(images_order_list));
+                }
+            }
+        });
+    });
+}
+
+window.addEvent('domready', function() { // wait for the content
+    photoqueue();
+    images_order();
 });
