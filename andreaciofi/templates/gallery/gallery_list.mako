@@ -27,22 +27,14 @@ ${parent.header()}
         </a>
 
         <div class="gallery_entry_tags">
-            <a href="${h.url(controller='gallery', action='tag', tag=gallery.date.strftime('%Y'))}">
-                ${gallery.date.strftime('%Y')}
-            </a>
-            % if gallery.tags:
-                , 
-            % endif
-            % for tag in gallery.tags[:-1]:
-                <a href="${h.url(controller='gallery', action='tag', tag=tag)}">
-                    ${tag}
-                </a>, 
-            % endfor
-            % if gallery.tags:
-            <a href="${h.url(controller='gallery', action='tag', tag=gallery.tags[-1])}">
-                ${gallery.tags[-1]}
-            </a> 
-            % endif
+          % for tag in gallery.all_tags[:-1]:
+            <a href="${h.url(controller='gallery', action='tag', tag=tag)}">
+                ${tag}
+            </a>,
+          % endfor
+          <a href="${h.url(controller='gallery', action='tag', tag=gallery.all_tags[-1])}">
+              ${gallery.all_tags[-1]}
+          </a>           
         </div>
     </div>
     <div class="gallery_entry_name">

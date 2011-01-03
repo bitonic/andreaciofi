@@ -24,22 +24,14 @@ ${parent.header()}
 
 <p>${h.process_text(c.gallery.text)}</p>
 <p><b>Tags:
-<a href="${h.url(controller='gallery', action='tag', tag=c.gallery.date.strftime('%Y'))}">
-    ${c.gallery.date.strftime('%Y')}
-</a>
-% if c.gallery.tags:
-    , 
-% endif
-% for tag in c.gallery.tags[:-1]:
-    <a href="${h.url(controller='gallery', action='tag', tag=tag)}">
-        ${tag}
-    </a>, 
-% endfor
-% if c.gallery.tags:
-<a href="${h.url(controller='gallery', action='tag', tag=c.gallery.tags[-1])}">
-    ${c.gallery.tags[-1]}
-</a> 
-% endif
+    % for tag in c.gallery.all_tags[:-1]:
+        <a href="${h.url(controller='gallery', action='tag', tag=tag)}">
+          ${tag}
+        </a>,
+    % endfor
+    <a href="${h.url(controller='gallery', action='tag', tag=c.gallery.all_tags[-1])}">
+      ${c.gallery.all_tags[-1]}
+    </a>           
 .</b>
 </p>
 

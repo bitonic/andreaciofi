@@ -60,7 +60,15 @@ class Gallery(mapping.Document):
 
         db.delete(self)
 
-
+    @property
+    def all_tags(self):
+        all_tags = self.tags
+        all_tags.append(self.date.strftime('%Y'))
+        if len(self.videos) > 0:
+            all_tags.append('video')
+        return all_tags
+                        
+    
     by_date = mapping.ViewField('galleries', '''
         function(doc) {
             emit(doc.date, {
