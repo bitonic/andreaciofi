@@ -23,8 +23,9 @@ class GalleryController(BaseController):
         c.galleries = list(Gallery.by_date(
                 self.db,
                 descending=True,
-                limit=self.entries_per_page * page,
-                ))[self.entries_per_page * (int(page) - 1):self.entries_per_page * int(page)]
+                limit=self.entries_per_page,
+                skip=self.entries_per_page * (int(page) - 1)
+                ))
         c.pages = list(self.db.view('galleries/count'))[0].value
         c.pages = (c.pages % self.entries_per_page == 0) and \
             list(self.db.view('galleries/count'))[0].value / self.entries_per_page or \
@@ -45,8 +46,9 @@ class GalleryController(BaseController):
                     descending=True,
                     startkey=[tag,{}],
                     endkey=[tag[:-1] + unichr(ord(tag[-1]) - 1)],
-                    limit=self.entries_per_page * page,
-                    ))[self.entries_per_page * (int(page) - 1):self.entries_per_page * int(page)]
+                    skip=self.entries_per_page * (int(page) - 1),
+                    limit=self.entries_per_page,
+                    ))
 
             c.pages = list(self.db.view('galleries/tag_count',
                                         group=True, key=tag))[0].value / self.entries_per_page + 1
