@@ -28,6 +28,7 @@
         <td>${", ".join(gallery.tags)}
         <td>${h.truncate_string(gallery.text)}</td>
         <td><a href="${h.url(controller='admin', action='edit_gallery', id=gallery.id)}">Edit</a></td>
+        <td><a href="${h.url(controller='gallery', action='show', slug=gallery.slug)}" target="_blank">View</a></td>
     </tr>
 % endfor
 </table>

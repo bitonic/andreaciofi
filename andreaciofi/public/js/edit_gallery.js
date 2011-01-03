@@ -49,6 +49,9 @@ function photoqueue() {
 	
 	// this is our browse button, *target* is overlayed with the Flash movie
 	target: 'images_browse',
+
+        // Attach cookies
+        appendCookieData: true,
 	
 	// graceful degradation, onLoad is only called if all went well with Flash
 	onLoad: function() {

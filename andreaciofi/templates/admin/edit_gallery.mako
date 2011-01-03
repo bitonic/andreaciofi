@@ -11,7 +11,7 @@ ${parent.head()}
 <script type="text/javascript" src="/fancyupload/source/FancyUpload2.js"></script>
 <script type="text/javascript" src="/js/mootools-more.js"></script>
 <script type="text/javascript">
-var images_upload_url = '${url(controller='admin', action='upload_image', id=c.gallery.id)}';
+var images_upload_url = '${url(controller='admin', action='upload_image', id=c.gallery.id, session_id=h.session.id)}';
 var images_list_url = '${url(controller='admin', action='images_delete_list', id=c.gallery.id)}';
 var images_order_url = '${url(controller='admin', action='images_order', id=c.gallery.id)}';
 % if c.gallery.images:
@@ -29,7 +29,7 @@ var images_order_url = '${url(controller='admin', action='images_order', id=c.ga
 <link rel="stylesheet" href="/css/photoqueue.css" type="text/css" />
 </%def>
 
-<%def name="heading()">Editing gallery "${c.gallery.name}"</%def>
+<%def name="heading()">Editing gallery <a href="${h.url(controller='gallery', action='show', slug=c.gallery.slug)}">${c.gallery.name}</a></%def>
 
 ${h.form(h.url(controller='admin', action='do_edit_gallery', id=c.gallery.id), method='POST', multipart=True, id='form-demo')}
 <p>

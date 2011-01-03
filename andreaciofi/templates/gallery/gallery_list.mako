@@ -28,12 +28,12 @@ ${parent.header()}
 
         <div class="gallery_entry_tags">
           % for tag in gallery.all_tags[:-1]:
-            <a href="${h.url(controller='gallery', action='tag', tag=tag)}">
+              <a href="${h.url(controller='gallery', action='tag', tag=tag)}">
                 ${tag}
-            </a>,
+              </a>,
           % endfor
           <a href="${h.url(controller='gallery', action='tag', tag=gallery.all_tags[-1])}">
-              ${gallery.all_tags[-1]}
+            ${gallery.all_tags[-1]}
           </a>           
         </div>
     </div>

@@ -117,7 +117,7 @@ class AdminController(BaseController):
 
         flash("Gallery successfully deleted.")
         redirect(url(controller='admin', action='galleries'))
-
+        
     def upload_image(self, id):
         error = None
 
@@ -146,6 +146,7 @@ class AdminController(BaseController):
 
         return json.dumps(ret)
 
+    @authorize()
     def delete_image(self, id):
         gallery = Gallery.load(self.db, id)
         
@@ -154,6 +155,7 @@ class AdminController(BaseController):
 
         return 'OK'
 
+    @authorize()
     def images_order(self, id):
         gallery = Gallery.load(self.db, id)
 
