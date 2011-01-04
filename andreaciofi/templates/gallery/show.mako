@@ -1,7 +1,6 @@
 <%inherit file="/layout.mako" />
 
 <%namespace name="show_images" file="/gallery/show_images.mako"/>
-<%namespace name="tags" file="/gallery/tags.mako"/>
 
 <%def name="head()">
 ${parent.head()}
@@ -21,7 +20,7 @@ ${parent.header()}
     ${h.process_text(c.gallery.text)}
 % endif
 <p><b>Tags:
-    ${tags.tags(c.gallery.all_tags)}
+    ${h.tags(c.gallery.all_tags)}
 </b>
 </p>
 

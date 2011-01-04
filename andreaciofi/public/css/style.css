@@ -159,23 +159,25 @@ body a:visited {
 
 .gallery_img_description {
     color:white;
-    font-size:110%;
-    font-weight:bold;
     background-color:black;
     margin-top:-4px;
+    width:277px;
+    padding:6px;
+    height:100px;
 }
 
 .gallery_img_description a {
     color:white;
-    text-decoration:none;
-    width:277px;
-    padding:6px;
-    height:100px;
-    display:block;
 }
 
 .gallery_img_description a:visited {
     color:white;
+}
+
+.gallery_img_description_title {
+    font-size:110%;
+    font-weight:bold;    
+    text-decoration:none;
 }
 
 .gallery_imgs_col_left {

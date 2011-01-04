@@ -31,7 +31,7 @@ multiple = len(galleries) > 1
 
     % if multiple:
         <%
-        link = h.literal('<div class="gallery_img_description"><a href="' + h.url(controller='gallery', action='show', slug=gallery.slug) + '"><span class="gallery_entry_date">' + gallery.date.strftime('%Y/%m') + '</span> ' + gallery.name + '</a></div>')
+        link = h.literal('<div class="gallery_img_description"><a href="' + h.url(controller='gallery', action='show', slug=gallery.slug) + '" class="gallery_img_description_title"><span class="gallery_entry_date">' + gallery.date.strftime('%Y/%m') + '</span> ' + gallery.name + '</a><br/>Tags: ') + h.tags(gallery.all_tags) + h.literal('</div>')
         right += 114 + 8
         col_right += link
         %>

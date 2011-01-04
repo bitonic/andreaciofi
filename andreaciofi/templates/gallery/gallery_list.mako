@@ -1,7 +1,5 @@
 <%inherit file="/layout.mako" />
 
-<%namespace name="tags" file="/gallery/tags.mako"/>
-
 <%def name="header()">
 ${parent.header()}
 <span id="header_menu">
@@ -18,6 +16,8 @@ ${parent.header()}
             <span style="font-weight:normal">${p}</span>
         % endif
     % endfor
+    &middot;
+    <a href="${h.url(controller='gallery', action='all_images')}">VIEW ALL</a>
 % endif
 </%def>
 
@@ -29,7 +29,7 @@ ${parent.header()}
         </a>
 
         <div class="gallery_entry_tags">
-          ${tags.tags(gallery.all_tags)}
+          ${h.tags(gallery.all_tags)}
         </div>
     </div>
     <div class="gallery_entry_name">

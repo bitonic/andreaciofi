@@ -26,3 +26,14 @@ def thumbnailer_url(name, **kwargs):
 
 def process_text(text):
     return literal(publish_parts(text, writer_name="html")["html_body"])
+
+def tags(tags):
+    html = ""
+    if tags:
+        for tag in tags[:-1]:
+            html += '<a href="' + \
+                url(controller='gallery', action='tag', tag=tag) + '">' + tag \
+                + '</a>, '
+        html += '<a href="' + url(controller='gallery', action='tag', tag=tags[-1]) \
+            + '">' + tags[-1] + '</a>.'
+    return literal(html)
