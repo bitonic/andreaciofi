@@ -25,4 +25,3 @@ ${parent.header()}
 </p>
 
 ${show_images.images_list([c.gallery])}
-<hr/>

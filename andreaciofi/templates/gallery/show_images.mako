@@ -2,13 +2,14 @@
 % if galleries:
 <script type="text/javascript" src="/js/lightbox.js"></script>
 <script type="text/javascript">
-<% lightbox_imgs = "[" %>
-% for gallery in galleries:
-    % for image in gallery.images:
-        <% lightbox_imgs += h.literal('"') + h.image_url(image) + h.literal('",') %>
-    % endfor
-% endfor
-<% lightbox_imgs = lightbox_imgs[:-1] + ']' %>
+<%
+lightbox_imgs = "["
+for gallery in galleries:
+    for image in gallery.images:
+        lightbox_imgs += h.literal('"') + h.image_url(image) + h.literal('",')
+    endfor
+lightbox_imgs = lightbox_imgs[:-1] + ']'
+%>
 var lightbox_imgs = ${lightbox_imgs};
 </script>
 % endif

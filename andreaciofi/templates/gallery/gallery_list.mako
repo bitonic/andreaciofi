@@ -17,8 +17,8 @@ ${parent.header()}
         % endif
     % endfor
     &middot;
-    <a href="${h.url(controller='gallery', action='all_images')}">VIEW ALL</a>
 % endif
+<a href="${h.url(controller='gallery', action='all_images')}">VIEW ALL</a>
 </%def>
 
 <%def name="gallery_entry(gallery, thumb)">
@@ -89,5 +89,7 @@ right_col_entries = []
             ${p}
         % endif
     % endfor
-    </div>
+    &middot;
 % endif
+<a href="${h.url(controller='gallery', action='all_images')}">VIEW ALL</a>
+</div>

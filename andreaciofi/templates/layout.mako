@@ -46,7 +46,7 @@ choose year:
     </ul>
   </li>
 </ul>
-${h.text('searchterms', value='Search')}
+<!--${h.text('searchterms', value='Search')}-->
 ${h.end_form()}
 </span>
 </div>

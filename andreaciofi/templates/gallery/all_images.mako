@@ -10,7 +10,7 @@ ${show_images.javascript_list(c.galleries)}
 <%def name="header()">
 ${parent.header()}
 <div id="header_menu">
-<a href="#"><img src="/images/about.png" alt="About" /></a><a href="/"><img src="/images/works.png" alt="Works" /></a>
+<a href="#"><img src="/images/about.png" alt="About" /></a><a href="/"><img src="/images/worksBlack.png" alt="Works" /></a>
 </div>
 </%def>
 
