@@ -86,7 +86,11 @@ class GalleryController(BaseController):
                 abort(404)
         else:
             abort(404)
-            
+
+    def all_images(self):
+        c.galleries = list(Gallery.by_date(self.db, descending=True))
+        return render('/gallery/all_images.mako')
+
     def show(self, slug):
         c.gallery = list(Gallery.by_slug(self.db, key=slug, limit=1))
 

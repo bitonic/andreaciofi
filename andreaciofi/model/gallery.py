@@ -78,6 +78,7 @@ class Gallery(mapping.Document):
                name: doc.name,
                slug: doc.slug,
                videos: doc.videos,
+               images: doc.images,
             });
         }''')
 

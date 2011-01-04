@@ -12,22 +12,22 @@ var current_img = null;
 window.addEvent('domready', function() {
     // Inject the divs
     document.body.innerHTML += '\
-    <div id="lightbox_content"> \
-        <div id="lightbox_img"> \
+        <div id="lightbox_content"> \
+          <div id="lightbox_img"> \
             <img src="/images/filler.png" /> \
-        </div> \
-        <div id="lightbox_navbar"> \
+          </div> \
+          <div id="lightbox_navbar"> \
             <a href="javascript:hide_img()" id="lightbox_close"> \
-                <img src="/images/lightbox_close.png"/> \
+              <img src="/images/lightbox_close.png"/> \
             </a> \
             <span id="lightbox_loading"></span> \
             <div id="lightbox_navbar_inner"> \
-                <a href="" id="lightbox_left"></a> \
-                <a href="" id="lightbox_right"></a> \
+              <a href="" id="lightbox_left"></a> \
+              <a href="" id="lightbox_right"></a> \
             </div> \
-         </div> \
-    </div> \
-    <div id="lightbox_overlay"></div>';
+          </div> \
+        </div> \
+        <div id="lightbox_overlay"></div>';
     lightbox_content = $('lightbox_content');
     lightbox_overlay = $('lightbox_overlay');
     lightbox_navbar = $('lightbox_navbar_inner');

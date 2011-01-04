@@ -1,11 +1,10 @@
 <%inherit file="/layout.mako" />
 
 <%namespace name="show_images" file="/gallery/show_images.mako"/>
-<%namespace name="tags" file="/gallery/tags.mako"/>
 
 <%def name="head()">
 ${parent.head()}
-${show_images.javascript_list([c.gallery])}
+${show_images.javascript_list(c.galleries)}
 </%def>
 
 <%def name="header()">
@@ -15,15 +14,6 @@ ${parent.header()}
 </div>
 </%def>
 
-<%def name="heading()">${c.gallery.name.upper()}</%def>
-
-% if c.gallery.text:
-    ${h.process_text(c.gallery.text)}
-% endif
-<p><b>Tags:
-    ${tags.tags(c.gallery.all_tags)}
-</b>
-</p>
-
-${show_images.images_list([c.gallery])}
+<%def name="heading()">ALL WORKS</%def>
+${show_images.images_list(c.galleries)}
 <hr/>
