@@ -14,6 +14,8 @@ setup(
     url='',
     install_requires=[
         "Pylons>=1.0",
+        "Couchdb==0.7",
+        "docutils==0.7",
     ],
     setup_requires=["PasteScript>=1.6.3"],
     packages=find_packages(exclude=['ez_setup']),

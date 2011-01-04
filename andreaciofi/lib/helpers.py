@@ -7,6 +7,7 @@ from webhelpers.html.tags import *
 from webhelpers.pylonslib import Flash as _Flash
 from webhelpers.html import literal
 from datetime import datetime
+from docutils.core import publish_parts
 
 from pylons import url, session
 
@@ -24,4 +25,4 @@ def thumbnailer_url(name, **kwargs):
     return image_url(thumbnailer(name, **kwargs))
 
 def process_text(text):
-    return literal('<p>') + literal(text.replace('\n', '</p><p>')) + literal('</p>')
+    return literal(publish_parts(text, writer_name="html")["html_body"])

@@ -34,7 +34,7 @@ ${parent.header()}
           % endfor
           <a href="${h.url(controller='gallery', action='tag', tag=gallery.all_tags[-1])}">
             ${gallery.all_tags[-1]}
-          </a>           
+          </a>.
         </div>
     </div>
     <div class="gallery_entry_name">
@@ -45,17 +45,22 @@ ${parent.header()}
 
 <%
 left_col = 0
+middle_col = 0
 right_col = 0
 left_col_entries = []
+middle_col_entries = []
 right_col_entries = []
 %>
 
 % for gallery in c.galleries:
     <%
     thumb = h.thumbnailer(gallery.cover, max_width=438)
-    if left_col <= right_col:
+    if left_col <= right_col and left <= right:
         left_col += h.image_size(thumb)[1] + 8
         left_col_entries.append(gallery)
+    elif middle_col <= right_col:
+        middle_col += h.image_size(thumb)[1] + 8
+        middle_col_entries.append(gallery)
     else:
         right_col += h.image_size(thumb)[1] + 8
         right_col_entries.append(gallery)
@@ -64,13 +69,19 @@ right_col_entries = []
 
 <div class="gallery_entries">
 % for gallery in left_col_entries:
-    ${gallery_entry(gallery, h.thumbnailer(gallery.cover, max_width=438))}
+    ${gallery_entry(gallery, h.thumbnailer(gallery.cover, max_width=289))}
+% endfor
+</div>
+
+<div class="gallery_entries">
+% for gallery in middle_col_entries:
+    ${gallery_entry(gallery, h.thumbnailer(gallery.cover, max_width=289))}
 % endfor
 </div>
 
 <div class="gallery_entries">
 % for gallery in right_col_entries:
-    ${gallery_entry(gallery, h.thumbnailer(gallery.cover, max_width=438))}
+    ${gallery_entry(gallery, h.thumbnailer(gallery.cover, max_width=289))}
 % endfor
 </div>
 

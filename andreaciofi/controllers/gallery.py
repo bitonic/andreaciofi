@@ -9,7 +9,7 @@ from andreaciofi.model import Gallery
 log = logging.getLogger(__name__)
 
 class GalleryController(BaseController):
-    entries_per_page = 7
+    entries_per_page = 10
     
     def __before__(self):
         c.years = list(self.db.view('galleries/years', group=True, descending=True))

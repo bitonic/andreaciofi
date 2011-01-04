@@ -22,7 +22,9 @@ ${parent.header()}
 
 <%def name="heading()">${c.gallery.name.upper()}</%def>
 
-<p>${h.process_text(c.gallery.text)}</p>
+% if c.gallery.text:
+    ${h.process_text(c.gallery.text)}
+% endif
 <p><b>Tags:
     % for tag in c.gallery.all_tags[:-1]:
         <a href="${h.url(controller='gallery', action='tag', tag=tag)}">
@@ -39,13 +41,16 @@ ${parent.header()}
 left = 0
 middle = 0
 right = 0
+videos = ""
 col_left = ""
+col_middle = ""
 col_right = ""
 %>
 
+<div class="gallery_imgs_col_left">
 % for video in c.gallery.videos:
+    <div class="gallery_video"><iframe src="http://player.vimeo.com/video/${video}" width="586" height="330" frameborder="0"></iframe></div>
     <%
-    col_left += h.literal('<div class="gallery_video"><iframe src="http://player.vimeo.com/video/' + video + '" width="586" height="330" frameborder="0"></iframe></div>')
     left += 338
     middle += 338
     %>
@@ -55,20 +60,22 @@ col_right = ""
 % if left <= middle and left <= right:
     <%
     left += h.image_size(h.thumbnailer(image, max_width=289))[1] + 8
-    col_left += h.literal('<a class="gallery_img_link" href="' + h.image_url(image) + '" target="_blank"><img src="' + h.thumbnailer_url(image, max_width=289) + '" class="gallery_img_left" /></a>')
+    col_left += h.literal('<a class="gallery_img_link" href="' + h.image_url(image) + '" target="_blank"><img src="' + h.thumbnailer_url(image, max_width=289) + '" class="gallery_img" /></a>')
     %>
 % elif middle <= right:
     <%
     middle += h.image_size(h.thumbnailer(image, max_width=289))[1] + 8
-    col_left += h.literal('<a class="gallery_img_link" href="' + h.image_url(image) + '" target="_blank"><img src="' + h.thumbnailer_url(image, max_width=289) + '" class="gallery_img_right" /></a>')
+    col_middle += h.literal('<a class="gallery_img_link" href="' + h.image_url(image) + '" target="_blank"><img src="' + h.thumbnailer_url(image, max_width=289) + '" class="gallery_img" /></a>')
     %>
 % else:
     <%
     right += h.image_size(h.thumbnailer(image, max_width=289))[1] + 8
-    col_right += h.literal('<a class="gallery_img_link" href="' + h.image_url(image) + '" target="_blank"><img src="' + h.thumbnailer_url(image, max_width=289) + '" class="gallery_img_left" /></a>')
+    col_right += h.literal('<a class="gallery_img_link" href="' + h.image_url(image) + '" target="_blank"><img src="' + h.thumbnailer_url(image, max_width=289) + '" class="gallery_img" /></a>')
     %>
 % endif
 % endfor
-<div class="gallery_imgs_left_col">${col_left}</div>
-${col_right}
+<div class="gallery_imgs_col">${col_left}</div>
+<div class="gallery_imgs_col">${col_middle}</div>
+</div>
+<div class="gallery_imgs_col_right">${col_right}</div>
 <hr/>

@@ -4,6 +4,7 @@ from decorator import decorator
 from hashlib import sha1
 import json
 from PIL import Image as PILImage
+from beaker.session import Session
 
 from pylons import request, response, session, tmpl_context as c, url, config
 from pylons.controllers.util import abort, redirect

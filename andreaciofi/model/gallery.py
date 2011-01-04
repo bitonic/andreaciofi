@@ -77,6 +77,7 @@ class Gallery(mapping.Document):
                tags: doc.tags,
                name: doc.name,
                slug: doc.slug,
+               videos: doc.videos,
             });
         }''')
 
@@ -129,6 +130,7 @@ class Gallery(mapping.Document):
                     tags: doc.tags,
                     name: doc.name,
                     slug: doc.slug,
+                    videos: doc.videos,
                 });
             }
             emit([doc.date.substr(0, 4), doc.date], {
@@ -137,6 +139,7 @@ class Gallery(mapping.Document):
                 tags: doc.tags,
                 name: doc.name,
                 slug: doc.slug,
+                videos: doc.videos,
             });
             if (doc.videos.length > 0) {
                 emit(["video", doc.date], {
@@ -145,6 +148,7 @@ class Gallery(mapping.Document):
                     tags: doc.tags,
                     name: doc.name,
                     slug: doc.slug,
+                    videos: doc.videos,
                 });                
             }
         }''')

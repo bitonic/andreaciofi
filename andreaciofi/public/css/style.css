@@ -83,19 +83,19 @@ body a:visited {
     padding:0;
     border:2px solid black;
     margin: 0 0 8px 0;
-    width:438px;
+    width:289px;
     float:left;
 }
 
 .gallery_entries {
     float:left;
-    width:442px;
+    width:293px;
     margin:0;
     padding:0 0 0 4px;
 }
 
 .gallery_entry_img {
-    width:438px;
+    width:289px;
     margin:0;
     padding:0 0 2px 0;
     float:left;
@@ -117,8 +117,8 @@ body a:visited {
 }
 
 .gallery_entry_name {
-    width:428px;
-    margin:0 0 0 -438px;
+    width:279px;
+    margin:0 0 0 -289px;
     padding:3px 5px;
     float:right;
     background-image:url('/images/gallery_name_bg.png');
@@ -140,22 +140,26 @@ body a:visited {
     font-size:130%;
 }
 
-.gallery_img_left, .gallery_img_right {
+.gallery_img {
     margin:4px 0 0 4px;
     float:left;
     border:2px solid black;
 }
 
-.gallery_img_right {
-    float:right;
+.gallery_imgs_col_left {
+    width:594px;
+    margin:0;
+    padding:0;
+    float:left;
 }
 
-.gallery_imgs_left_col {
+.gallery_imgs_col {
     float:left;
-    width:594px;
+    width:297px;
     padding:0;
-    margin:0 0 0 4px;
+    margin:0;
 }
+
 .gallery_video {
     margin:4px 0 0 4px;
     float:left;
@@ -236,6 +240,10 @@ body a:visited {
     text-align:left;
 }
 
+#document {
+    margin:0;
+    padding:0;
+}
 /* Lightbox stuff */
 #lightbox_overlay{
     display: none;
