@@ -4,7 +4,7 @@
 
 <%def name="heading()">Login</%def>
 
-% if 'logged_in' in h.session:
+% if c.logged_in:
     <b>You are already logged in.</b>
 % else:
     ${h.form(h.url(controller='admin', action='login'), method='POST')}

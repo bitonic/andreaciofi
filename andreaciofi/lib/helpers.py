@@ -9,7 +9,7 @@ from webhelpers.html import literal
 from datetime import datetime
 from docutils.core import publish_parts
 
-from pylons import url, session
+from pylons import url
 
 from andreaciofi.lib.images import thumbnailer, image_url, image_size
 

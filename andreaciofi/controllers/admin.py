@@ -38,6 +38,9 @@ def authorize():
 
 class AdminController(BaseController):
 
+    def __before__(self):
+        c.logged_in = 'logged_in' in session
+
     def index(self):
         redirect(url(controller='admin', action='galleries'))
 
