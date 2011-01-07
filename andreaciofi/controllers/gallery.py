@@ -81,14 +81,25 @@ class GalleryController(BaseController):
                     c.page = page
                     c.base_url = url(controller='gallery', action='tag', tag=tag, page=0)[:-1]
                     
+                    c.tag = tag
                     return render('/gallery/gallery_list.mako')
             else:
                 abort(404)
         else:
             abort(404)
 
-    def all_images(self):
-        c.galleries = list(Gallery.by_date(self.db, descending=True))
+    def all_images(self, tag=None):
+        c.tag = tag
+        if tag:
+            c.galleries = list(Gallery.by_tag(
+                    self.db,
+                    descending=True,
+                    startkey=[tag,{}],
+                    endkey=[tag[:-1] + unichr(ord(tag[-1]) - 1)],
+                    ))
+        else:
+            c.galleries = list(Gallery.by_date(self.db, descending=True))
+
         return render('/gallery/all_images.mako')
 
     def show(self, slug):

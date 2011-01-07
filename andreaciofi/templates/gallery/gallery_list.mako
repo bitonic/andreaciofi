@@ -18,7 +18,11 @@ ${parent.header()}
     % endfor
     &middot;
 % endif
-<a href="${h.url(controller='gallery', action='all_images')}">VIEW ALL</a>
+% if hasattr(c, 'tag'):
+    <a href="${h.url(controller='gallery', action='all_images', tag=c.tag)}">VIEW ALL</a>
+% else:
+    <a href="${h.url(controller='gallery', action='all_images')}">VIEW ALL</a>
+% endif
 </%def>
 
 <%def name="gallery_entry(gallery, thumb)">
@@ -80,8 +84,8 @@ right_col_entries = []
 % endfor
 </div>
 
+<div id="pages_bottom">
 % if c.pages > 1:
-    <div id="pages_bottom">
     % for p in range(1, c.pages + 1):
         % if p != c.page:
             <a href="${c.base_url + str(p)}">${p}</a>

@@ -14,6 +14,18 @@ ${parent.header()}
 </div>
 </%def>
 
-<%def name="heading()">ALL WORKS</%def>
+<%def name="heading()">
+ALL WORKS
+% if c.tag:
+    &middot; ${c.tag.upper()}
+% endif
+&middot;
+% if c.tag:
+    <a href="${h.url(controller='gallery', action='tag', tag=c.tag)}">VIEW PAGES</a>
+% else:
+    <a href="${h.url(controller='gallery', action='list')}">VIEW PAGES</a>
+% endif
+</%def>
+
 ${show_images.images_list(c.galleries)}
 <hr/>

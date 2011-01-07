@@ -26,6 +26,7 @@ def make_map(config):
     map.connect('tag_page', '/tag/{tag}/page/{page}', controller='gallery', action='tag')
     map.connect('show', '/gallery/{slug}', controller='gallery', action='show')
     map.connect('all_images', '/all_images', controller='gallery', action='all_images')
+    map.connect('all_images_tag', '/tag/{tag}/all_images', controller='gallery', action='all_images')
 
     map.connect('admin_index1', '/admin', controller='admin', action='galleries')
     map.connect('admin_index2', '/admin/', controller='admin', action='galleries')

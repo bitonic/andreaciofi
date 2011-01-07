@@ -132,6 +132,7 @@ class Gallery(mapping.Document):
                     name: doc.name,
                     slug: doc.slug,
                     videos: doc.videos,
+                    images: doc.images,
                 });
             }
             emit([doc.date.substr(0, 4), doc.date], {
@@ -141,6 +142,7 @@ class Gallery(mapping.Document):
                 name: doc.name,
                 slug: doc.slug,
                 videos: doc.videos,
+                images: doc.images,
             });
             if (doc.videos.length > 0) {
                 emit(["video", doc.date], {
@@ -150,6 +152,7 @@ class Gallery(mapping.Document):
                     name: doc.name,
                     slug: doc.slug,
                     videos: doc.videos,
+                    images: doc.images,
                 });                
             }
         }''')
