@@ -3,7 +3,7 @@
 <%def name="header()">
 ${parent.header()}
 <span id="header_menu">
-<a href="#"><img src="/images/about.png" alt="About" /></a><a href="/"><img src="/images/worksBlack.png" alt="Works" /></a>
+<a href="${h.url(controller='gallery', action='about')}"><img src="/images/about.png" alt="About" /></a><a href="/"><img src="/images/worksBlack.png" alt="Works" /></a>
 </span>
 </%def>
 

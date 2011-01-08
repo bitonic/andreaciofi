@@ -10,7 +10,7 @@ ${show_images.javascript_list(c.galleries)}
 <%def name="header()">
 ${parent.header()}
 <div id="header_menu">
-<a href="#"><img src="/images/about.png" alt="About" /></a><a href="/"><img src="/images/worksBlack.png" alt="Works" /></a>
+<a href="${h.url(controller='gallery', action='about')}"><img src="/images/about.png" alt="About" /></a><a href="/"><img src="/images/worksBlack.png" alt="Works" /></a>
 </div>
 </%def>
 
@@ -29,3 +29,4 @@ ALL WORKS
 
 ${show_images.images_list(c.galleries)}
 <hr/>
+<div id="to_top"><a href="#">to top &uarr;</a></div>

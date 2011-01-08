@@ -145,6 +145,7 @@ body a:visited {
     padding:0;
     border-top:7px solid black;
     width:887px;
+    clear:both;
 }
 
 .gallery_imgs hr {
@@ -200,6 +201,29 @@ body a:visited {
     padding:0;
     height:332px;
     border:2px solid black;
+}
+
+#content ul {
+    list-style-type:none;
+    margin:0;
+    padding:0 0 0 4px;
+}
+
+#content li {
+    float:left;
+    margin:0 0 1px 1px;
+    padding:4px 7px;
+    width:429px;
+    background-color:black;
+}
+
+#content li a {
+    color:white;
+    display:block;
+}
+
+#content li a:visited {
+    color:white;
 }
 
 #content hr {
@@ -278,6 +302,24 @@ body a:visited {
     margin:0;
     padding:0;
 }
+
+#to_top {
+    position:fixed;
+    left:50%;
+    top:100%;
+    margin: -25px 0 0 -25px;
+    background-color:white;
+    height:25px;
+    width:50px;
+    text-align:center;
+    padding:5px;
+    font-weight:bold;
+}
+
+#to_top a {
+    text-decoration:none;
+}
+
 /* Lightbox stuff */
 #lightbox_overlay{
     display: none;

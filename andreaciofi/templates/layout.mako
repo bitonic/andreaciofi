@@ -3,6 +3,17 @@
 <%def name="head()">
 ${parent.head()}
 <link rel="stylesheet" href="/css/style.css" type="text/css" />
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', '${c.analytics_id}']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
 </%def>
 
 <%def name="title()">Andrea Ciofi</%def>
@@ -35,7 +46,7 @@ ${self.heading()}
 % endif
 </span>
 <span id="searchbar_right">
-${h.form(h.url(controller='gallery', action='search'), method='GET')}
+<!--${h.form(h.url(controller='gallery', action='search'), method='GET')}-->
 choose year:
 <ul>
   <li><a href="${h.url(controller='gallery', action='tag', tag=c.years[0])}">${c.years[0]}</a>
@@ -47,7 +58,7 @@ choose year:
   </li>
 </ul>
 <!--${h.text('searchterms', value='Search')}-->
-${h.end_form()}
+<!--${h.end_form()}-->
 </span>
 </div>
 

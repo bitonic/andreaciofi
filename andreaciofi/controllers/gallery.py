@@ -1,6 +1,6 @@
 import logging
 
-from pylons import request, response, session, tmpl_context as c, url
+from pylons import request, response, session, tmpl_context as c, url, config
 from pylons.controllers.util import abort, redirect
 
 from andreaciofi.lib.base import BaseController, render
@@ -16,10 +16,12 @@ class GalleryController(BaseController):
         for i in range(len(c.years)):
             c.years[i] = c.years[i].key
 
+        c.analytics_id = config['analytics_id']
+
     def index(self):
         redirect(url(controller='gallery', action='list', page=1))
 
-    def list(self, page):
+    def list(self, page, tag=None):
         try:
             int(page)
         except ValueError:
@@ -111,3 +113,6 @@ class GalleryController(BaseController):
             c.gallery = c.gallery[0]
             
             return render('/gallery/show.mako')
+    
+    def about(self):
+        return render('/about.mako')

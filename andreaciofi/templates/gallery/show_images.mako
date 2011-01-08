@@ -20,6 +20,16 @@ var lightbox_imgs = ${lightbox_imgs};
 multiple = len(galleries) > 1
 %>
 
+% if multiple:
+      <ul>
+        % for gallery in galleries:
+            <li><a href="#${gallery.slug}" class="gallery_img_description_title"><span class="gallery_entry_date">${gallery.date.strftime('%Y/%m')}</span> ${gallery.name}</a>
+            </li>
+        % endfor
+      </ul>
+      <hr/>
+% endif
+
 % for gallery in galleries:
     <%
     left = 0
@@ -51,6 +61,7 @@ multiple = len(galleries) > 1
             col_right += image_div
     %>
 
+    <a name="${gallery.slug}"></a>                                      
     <div class="gallery_imgs">
       <div class="gallery_imgs_col_left">
 
