@@ -8,6 +8,10 @@ from andreaciofi.model import Gallery
 
 log = logging.getLogger(__name__)
 
+# This code is really, really ugly. I should restructure it with a
+# common function to list galleries with an optional tag parameter and
+# the possibility to switch between the two listing modes.
+
 class GalleryController(BaseController):
     entries_per_page = 10
     
