@@ -7,11 +7,12 @@ from webhelpers.html.tags import *
 from webhelpers.pylonslib import Flash as _Flash
 from webhelpers.html import literal
 from datetime import datetime
-from docutils.core import publish_parts
+from cgi import escape
 
 from pylons import url
 
 from andreaciofi.lib.images import thumbnailer, image_url, image_size
+from andreaciofi.lib.bbcode import BBCode
 
 flash = _Flash()
 
@@ -25,7 +26,10 @@ def thumbnailer_url(name, **kwargs):
     return image_url(thumbnailer(name, **kwargs))
 
 def process_text(text):
-    return literal(publish_parts(text, writer_name="html")["html_body"])
+    result = escape(text)
+    result = BBCode(text).generate_html()
+    result = literal("<p>" + result[0] + "<p/><p>".join(result[1:].splitlines()) + "</p>")
+    return result
 
 def tags(tags):
     html = ""

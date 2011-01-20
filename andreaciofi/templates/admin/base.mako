@@ -18,11 +18,4 @@ ${parent.head()}
 
 <h1>${next.heading()}</h1>
 
-% if 'logged_in' in h.session:
-    <a href="${h.url(controller='admin', action='galleries')}">Galleries</a> - 
-    <a href="${h.url(controller='admin', action='new_gallery')}">Create new gallery</a> -
-    <a href="${h.url(controller='admin', action='logout')}">Logout</a>
-    <hr/>
-% endif
-
 ${next.body()}
