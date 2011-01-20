@@ -1,4 +1,5 @@
 import logging
+from decorator import decorator
 
 from pylons import request, response, session, tmpl_context as c, url, config
 from pylons.controllers.util import abort, redirect
@@ -21,18 +22,15 @@ class GalleryController(BaseController):
     def index(self):
         redirect(url(controller='gallery', action='list', page=1))
 
-    def list(self, page, tag=None):
+    def list(self, page):
         try:
             int(page)
         except ValueError:
             abort(404)
 
-        c.pages = list(self.db.view('galleries/count'))
-
         c.pages = list(self.db.view('galleries/count'))[0].value
-        c.pages = (c.pages % self.entries_per_page == 0) and \
-            list(self.db.view('galleries/count'))[0].value / self.entries_per_page or \
-            list(self.db.view('galleries/count'))[0].value / self.entries_per_page + 1
+        if c.pages % self.entries_per_page:
+            c.pages += 1
 
         if int(page) <= c.pages:
             c.galleries = list(Gallery.by_date(
@@ -41,9 +39,11 @@ class GalleryController(BaseController):
                     limit=self.entries_per_page,
                     skip=self.entries_per_page * (int(page) - 1)
                     ))
-            c.pages = (c.pages % self.entries_per_page == 0) and \
-                list(self.db.view('galleries/count'))[0].value / self.entries_per_page or \
-                list(self.db.view('galleries/count'))[0].value / self.entries_per_page + 1
+
+            c.pages = list(self.db.view('galleries/count'))[0].value / self.entries_per_page
+            if c.pages % self.entries_per_page == 0:
+                c.pages += 1
+
             c.page = int(page)
             
             c.base_url = url(controller='gallery', action='list', page=0)[:-1]
@@ -52,7 +52,6 @@ class GalleryController(BaseController):
         else:
             abort(404)
                                            
-
     def tag(self, tag, page=0):
         try:
             int(page)

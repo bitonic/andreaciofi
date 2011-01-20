@@ -36,4 +36,4 @@ def tags(tags):
                 + '</a>, '
         html += '<a href="' + url(controller='gallery', action='tag', tag=tags[-1]) \
             + '">' + tags[-1] + '</a>.'
-    return literal(html)
+    return literal(html)        
