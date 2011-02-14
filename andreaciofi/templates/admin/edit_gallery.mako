@@ -9,7 +9,7 @@ ${parent.head()}
 <script type="text/javascript" src="/fancyupload/source/Swiff.Uploader.js"></script>
 <script type="text/javascript" src="/fancyupload/source/Fx.ProgressBar.js"></script>
 <script type="text/javascript" src="/fancyupload/source/FancyUpload2.js"></script>
-<script type="text/javascript" src="/js/mootools-more.js"></script>
+<script type="text/javascript" src="http://mazzo.li/jslibs/mootools-more-1.3-yc.js"></script>
 <script type="text/javascript">
 var images_upload_url = '${url(controller='admin', action='upload_image', id=c.gallery.id)}';
 var images_list_url = '${url(controller='admin', action='images_delete_list', id=c.gallery.id)}';

@@ -28,6 +28,6 @@
 <%def name="head()">
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rel="shortcut icon" href="/favicon.ico" />
-<script type="text/javascript" src="/js/mootools-core-1.3-full-compat.js"></script>
+<script type="text/javascript" src="http://mazzo.li/jslibs/mootools-1.3-yc.js"></script>
 </%def>
 <%def name="footer()"></%def>
